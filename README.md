@@ -259,4 +259,6 @@ java -jar target/freedom-bot.jar
 
 ## Авторы
 
-<!-- TODO: заполнить -->
+Рещиков Андрей - @yuknowni
+
+Потапов Вадим - @ivyxide
