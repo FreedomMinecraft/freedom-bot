@@ -207,7 +207,7 @@ Telegram-бот для Minecraft-сервера **FREEDOM** — двухфакт
 
 | | |
 |---|---|
-| Язык | Java |
+| Язык | Java 21 |
 | Сборка и зависимости | Apache Maven |
 | Платформа | Telegram Bot API |
 | Тесты | JUnit |
@@ -234,14 +234,25 @@ bot.username=ИМЯ_БОТА
 
 ```bash
 mvn clean package
-java -jar target/freedom-bot.jar
+java -jar bot/target/freedom-bot.jar
 ```
 
 ---
 
 ## Структура проекта
 
-Раздел будет заполнен по мере появления кода.
+Многомодульный Maven-проект: бот и плагин живут в одном репозитории, общий код вынесен в отдельный модуль.
+
+```
+freedom-bot/
+├── pom.xml          # родительский: версия Java, версии библиотек, список модулей
+├── common/          # общий код бота и плагина (форматы данных, категории уведомлений)
+├── bot/             # Telegram-бот
+├── plugin/          # плагин для сервера Paper/Purpur 1.21.10 (появится позже)
+└── .github/         # CI (сборка и тесты на каждый PR) и шаблон Pull Request
+```
+
+Код лежит в пакетах `ru.freedomminecraft.<модуль>`.
 
 ---
 

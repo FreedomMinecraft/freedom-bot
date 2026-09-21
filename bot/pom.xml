@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Модуль bot: Telegram-бот.
+    Библиотеку telegrambots подключим на этапе 1, вместе с кодом, который её использует.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>ru.freedomminecraft</groupId>
+        <artifactId>freedom-parent</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>bot</artifactId>
+    <name>Freedom Bot</name>
+
+    <dependencies>
+        <!-- Версия не указана: её задаёт родительский pom -->
+        <dependency>
+            <groupId>ru.freedomminecraft</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Итоговый файл: bot/target/freedom-bot.jar -->
+        <finalName>freedom-bot</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!-- Класс, с которого начинается запуск: java -jar freedom-bot.jar -->
+                            <mainClass>ru.freedomminecraft.bot.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
