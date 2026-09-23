@@ -15,7 +15,7 @@ public class PingCommandTest {
 
     @Test
     void answersPong(){
-        assertEquals("pong", ping.execute("123"));
+        assertEquals("pong", ping.execute(""));
     }
 
     @Test

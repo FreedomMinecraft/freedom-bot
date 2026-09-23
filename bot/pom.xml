@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    Модуль bot: Telegram-бот.
-    Библиотеку telegrambots подключим на этапе 1, вместе с кодом, который её использует.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -22,6 +18,16 @@
         <dependency>
             <groupId>ru.freedomminecraft</groupId>
             <artifactId>common</artifactId>
+        </dependency>
+        <!-- Получение сообщений из Telegram (long polling) -->
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots-longpolling</artifactId>
+        </dependency>
+        <!-- Отправка ответов в Telegram -->
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots-client</artifactId>
         </dependency>
     </dependencies>
 
