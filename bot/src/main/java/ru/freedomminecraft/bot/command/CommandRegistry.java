@@ -8,7 +8,7 @@ import java.util.Optional;
 public class CommandRegistry {
     private final Map<String, Command> commands = new LinkedHashMap<>();
 
-    private void register(Command command) {
+    public void register(Command command) {
         String name = command.name();
         if (commands.containsKey(name)) {
             throw new IllegalArgumentException("Команда уже зарегистрирована: " + name);
