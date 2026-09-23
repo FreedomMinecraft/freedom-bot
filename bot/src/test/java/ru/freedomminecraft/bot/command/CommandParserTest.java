@@ -1,6 +1,7 @@
 package ru.freedomminecraft.bot.command;
 
 import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,13 +16,13 @@ public class CommandParserTest {
     }
 
     @Test
-    void parsesCommandWithArgument(){
+    void parsesCommandWithArgument() {
         assertEquals(Optional.of(new ParsedCommand("help", "about")), parser.parse("/help about"));
     }
 
     @Test
     void keepsWholeRestAsArgument() {
-        assertEquals(Optional.of(new ParsedCommand("clan", "ERRIS")), parser.parse("/clan ERRIS"));
+        assertEquals(Optional.of(new ParsedCommand("clan", "ERRIS Clan")), parser.parse("/clan ERRIS Clan"));
     }
 
     @Test
@@ -30,18 +31,18 @@ public class CommandParserTest {
     }
 
     @Test
-    void removesBotMention(){
+    void removesBotMention() {
         assertEquals(Optional.of(new ParsedCommand("help", "about")), parser.parse("/help@FreedomBot about"));
     }
 
     @Test
-    void ignoresCase(){
+    void ignoresCase() {
         assertEquals(Optional.of(new ParsedCommand("ping", "")), parser.parse("/PING"));
     }
 
     @Test
     void plainTextIsNotCommand() {
-        assertTrue(parser.parse("/").isEmpty());
+        assertTrue(parser.parse("привет").isEmpty());
     }
 
     @Test
