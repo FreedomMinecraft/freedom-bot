@@ -6,10 +6,17 @@ import java.util.Optional;
 
 public class CommandParser {
     private static final String PREFIX = "/";
-
-    private String removeBotMention(String word){
+    private static String removeBotMention(String word){
         int at = word.indexOf('@');
         return at >= 0 ? word.substring(0,at) : word;
+    }
+
+    public static String normalizeName(String rawName) {
+        String name = rawName.strip();
+        if (name.startsWith(PREFIX)) {
+            name = name.substring(PREFIX.length());
+        }
+        return removeBotMention(name).toLowerCase(Locale.ROOT);
     }
 
     public Optional<ParsedCommand> parse(String text) {
@@ -25,7 +32,7 @@ public class CommandParser {
         String withoutPrefix = trimmed.substring(PREFIX.length());
         String[] parts = withoutPrefix.split("\\s+", 2);
 
-        String name = removeBotMention(parts[0]).toLowerCase(Locale.ROOT);
+        String name = normalizeName(parts[0]);
         if (name.isEmpty()) {
             return Optional.empty();
         }

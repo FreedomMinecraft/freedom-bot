@@ -54,4 +54,9 @@ public class CommandParserTest {
     void nullIsNotCommand() {
         assertTrue(parser.parse(null).isEmpty());
     }
+
+    @Test
+    void normalizeCommandName() {
+        assertEquals("ping", CommandParser.normalizeName(" /PING@FreedomBot "));
+    }
 }
