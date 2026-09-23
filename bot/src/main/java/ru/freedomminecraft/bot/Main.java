@@ -5,10 +5,7 @@ import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
-import ru.freedomminecraft.bot.command.CommandDispatcher;
-import ru.freedomminecraft.bot.command.CommandParser;
-import ru.freedomminecraft.bot.command.CommandRegistry;
-import ru.freedomminecraft.bot.command.PingCommand;
+import ru.freedomminecraft.bot.command.*;
 import ru.freedomminecraft.bot.config.BotConfig;
 import ru.freedomminecraft.bot.telegram.TelegramBot;
 
@@ -17,6 +14,9 @@ public class Main {
         BotConfig config = BotConfig.fromEnvironment(System.getenv());
 
         CommandRegistry registry = new CommandRegistry();
+        registry.register(new HelpCommand(registry));
+        registry.register(new AboutCommand());
+        registry.register(new AuthorCommand());
         registry.register(new PingCommand());
 
         CommandDispatcher dispatcher = new CommandDispatcher(new CommandParser(), registry);
