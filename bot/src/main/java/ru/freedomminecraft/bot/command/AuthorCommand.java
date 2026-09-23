@@ -9,7 +9,7 @@ public class AuthorCommand implements Command {
 
     @Override
     public String execute(String argument){
-        return "авторы freedom bot:\n"
+        return "Авторы Freedom Bot:\n"
             + "Рещиков Андрей - @yuknowni\n"
             + "Потапов Вадим - @ivyxide";
     }
