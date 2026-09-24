@@ -32,7 +32,7 @@ public class HelpCommand implements Command{
             }
             return text.toString();
         }
-        String commandName = argument.strip();
+        String commandName = CommandParser.normalizeName(argument);
         Optional<Command> found = registry.find(commandName);
         if (found.isPresent()){
             Command command = found.get();

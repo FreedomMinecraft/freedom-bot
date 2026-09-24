@@ -2,7 +2,6 @@ package ru.freedomminecraft.bot.command;
 
 import org.junit.jupiter.api.Test;
 
-import javax.annotation.processing.SupportedAnnotationTypes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
