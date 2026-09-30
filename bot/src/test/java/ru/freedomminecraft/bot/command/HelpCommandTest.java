@@ -61,4 +61,18 @@ public class HelpCommandTest {
 
         assertTrue(answer.contains("Нет такой команды: fly"));
     }
+
+    @Test
+    void acceptsCommandNameWithSlash() {
+        registry.register(new PingCommand());
+
+        assertEquals(help.execute("ping"), help.execute("/ping"));
+    }
+
+    @Test
+    void ignoresCaseOfCommandName() {
+        registry.register(new PingCommand());
+
+        assertEquals(help.execute("ping"), help.execute("PING"));
+    }
 }
