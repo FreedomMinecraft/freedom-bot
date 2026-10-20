@@ -18,6 +18,7 @@ public class Main {
         registry.register(new AboutCommand());
         registry.register(new AuthorCommand());
         registry.register(new PingCommand());
+        registry.register(new StartCommand());
 
         CommandDispatcher dispatcher = new CommandDispatcher(new CommandParser(), registry);
         TelegramClient client = new OkHttpTelegramClient(config.token());
