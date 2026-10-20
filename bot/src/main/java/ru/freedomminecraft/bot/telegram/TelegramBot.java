@@ -2,6 +2,9 @@ package ru.freedomminecraft.bot.telegram;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.telegram.telegrambots.longpolling.util.DefaultLongPollingUpdateConsumer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -11,6 +14,8 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 import ru.freedomminecraft.bot.command.CommandDispatcher;
 
 public class TelegramBot extends DefaultLongPollingUpdateConsumer{
+    private static final Logger log = LoggerFactory.getLogger(TelegramBot.class);
+
     private final TelegramClient client;
     private final CommandDispatcher dispatcher;
 
@@ -22,7 +27,7 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
         try {
             client.execute(message);
         } catch (TelegramApiException e) {
-            System.err.println("Не удалось отправить в чат " + chatId + ": " + e.getMessage());
+            log.error("Не удалось отправить ответ в чат {}", chatId, e);
         }
     }
 

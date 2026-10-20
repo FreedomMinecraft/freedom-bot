@@ -1,8 +1,12 @@
 package ru.freedomminecraft.bot.command;
 
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CommandDispatcher {
+    private static final Logger log = LoggerFactory.getLogger(CommandDispatcher.class);
+
     private final CommandParser parser;
     private final CommandRegistry registry;
 
@@ -20,9 +24,11 @@ public class CommandDispatcher {
         ParsedCommand parsedCommand = parsed.get();
         Optional<Command> command = registry.find(parsedCommand.name());
         if (command.isEmpty()) {
+            log.info("Неизвестная команда: /{}", parsedCommand.name());
             return Optional.of("Неизвестная команда /" + parsedCommand.name() + ". Список команд: /help");
         }
 
+        log.info("Команда: /{}", parsedCommand.name());
         return Optional.of(command.get().execute(parsedCommand.argument()));
     }
 }
