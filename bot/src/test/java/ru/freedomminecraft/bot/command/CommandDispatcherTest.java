@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class CommandDispatcherTest {
     private CommandDispatcher dispatcher;
@@ -28,11 +29,29 @@ public class CommandDispatcherTest {
         }
     }
 
+    private static class BrokenCommand implements Command {
+        @Override
+        public String name(){
+            return "broken";
+        }
+
+        @Override
+        public String description(){
+            return "всегда падает с ошибкой";
+        }
+
+        @Override
+        public String execute(String argument){
+            throw new IllegalStateException("команда сломалась");
+        }
+    }
+
     @BeforeEach
     void setUp() {
         CommandRegistry registry = new CommandRegistry();
         registry.register(new PingCommand());
         registry.register(new EchoCommand());
+        registry.register(new BrokenCommand());
         dispatcher = new CommandDispatcher(new CommandParser(), registry);
     }
 
@@ -54,5 +73,23 @@ public class CommandDispatcherTest {
     @Test
     void ignoresPlainText() {
         assertTrue(dispatcher.dispatch("привет").isEmpty());
+    }
+
+    @Test
+    void brokenCommandDoesNotThrow(){
+        assertDoesNotThrow(() -> dispatcher.dispatch("/broken"));
+    }
+
+    @Test
+    void repliesWithErrorWhenCommandFails() {
+        assertEquals(
+            Optional.of("Ошибка при выполнении команды /broken. Попробуйте позже."),
+            dispatcher.dispatch("/broken"));
+    }
+
+    @Test
+    void worksAfterBrokenCommand(){
+        dispatcher.dispatch("/broken");
+        assertEquals(Optional.of("pong"), dispatcher.dispatch("/ping"));
     }
 }

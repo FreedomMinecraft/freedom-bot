@@ -29,6 +29,11 @@ public class CommandDispatcher {
         }
 
         log.info("Команда: /{}", parsedCommand.name());
-        return Optional.of(command.get().execute(parsedCommand.argument()));
+        try {
+            return Optional.of(command.get().execute(parsedCommand.argument()));
+        } catch (RuntimeException e){
+            log.error("Ошибка при выполнении команды /{}", parsedCommand.name(), e);
+            return Optional.of("Ошибка при выполнении команды /" + parsedCommand.name() + ". Попробуйте позже.");
+        }
     }
 }
