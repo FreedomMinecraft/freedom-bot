@@ -33,7 +33,7 @@ public class CommandDispatcher {
             return Optional.of(command.get().execute(parsedCommand.argument()));
         } catch (RuntimeException e){
             log.error("Ошибка при выполнении команды /{}", parsedCommand.name(), e);
-            return Optional.of("Ошибка при выполнении команды /" + parsedCommand.name() + "Попробуйте позже");
+            return Optional.of("Ошибка при выполнении команды /" + parsedCommand.name() + ". Попробуйте позже.");
         }
     }
 }
