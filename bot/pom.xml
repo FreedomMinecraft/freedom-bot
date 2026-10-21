@@ -29,6 +29,17 @@
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots-client</artifactId>
         </dependency>
+        <!-- Логирование: код пишет в лог через SLF4J-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <!-- Реализация SLF4J: печатает лог в консоль. Нужна только при запуске -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
