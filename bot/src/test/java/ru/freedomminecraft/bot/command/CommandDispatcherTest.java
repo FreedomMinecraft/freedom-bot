@@ -83,7 +83,7 @@ public class CommandDispatcherTest {
     @Test
     void repliesWithErrorWhenCommandFails() {
         assertEquals(
-            Optional.of("ошибка при выполнении команды /broken. попробуйте позже."),
+            Optional.of("Ошибка при выполнении команды /broken. Попробуйте позже."),
             dispatcher.dispatch("/broken"));
     }
 
