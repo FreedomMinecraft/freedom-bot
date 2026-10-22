@@ -10,6 +10,8 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 
 import ru.freedomminecraft.bot.command.*;
 import ru.freedomminecraft.bot.config.BotConfig;
+import ru.freedomminecraft.bot.serverinfo.JsonServerInfoSource;
+import ru.freedomminecraft.bot.serverinfo.ServerInfo;
 import ru.freedomminecraft.bot.telegram.TelegramBot;
 
 public class Main {
@@ -24,6 +26,11 @@ public class Main {
         registry.register(new AuthorCommand());
         registry.register(new PingCommand());
         registry.register(new StartCommand());
+        ServerInfo info = new JsonServerInfoSource(JsonServerInfoSource.DEFAULT_RESOURCE).load();
+        registry.register(new StaffCommand("admins", "Админ-состав сервера", "Админ-состав FREEDOM:", info.admins()));
+        registry.register(new ChatsCommand(info.chats()));
+        registry.register(new StaffCommand("eventors", "Ивенторы сервера", "Ивенторы FREEDOM:", info.eventors()));
+        registry.register(new StaffCommand("media", "Медиа-состав сервера", "Медиа-состав FREEDOM:", info.media()));
 
         CommandDispatcher dispatcher = new CommandDispatcher(new CommandParser(), registry);
         TelegramClient client = new OkHttpTelegramClient(config.token());
