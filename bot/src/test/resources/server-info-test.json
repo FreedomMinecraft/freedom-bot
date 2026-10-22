@@ -1,0 +1,24 @@
+{
+    "admins": [
+        { "nickname": "TestAdmin", "position": "Администратор" },
+        { "nickname": "TestModer", "position": "Модератор" }
+    ],
+    "eventors": [
+        { "nickname": "TestEventor", "position": "Ивентор" }
+    ],
+    "media": [
+        {
+            "nickname": "TestStreamer",
+            "position": "Медиа",
+            "links": [
+                { "title": "Twitch", "url": "https://www.twitch.tv/test" }
+            ]
+        }
+    ],
+    "chats": [
+        { "name": "Тестовый чат", "description": "Для проверки", "url": "https://t.me/test" }
+    ],
+    "support": [
+        { "title": "Бот поддержки", "url": "https://t.me/test_bot" }
+    ]
+}
