@@ -21,7 +21,7 @@ public class ChatsCommandTest {
     void showsNameAndDescription(){
         String answer = chats.execute("");
 
-        assertTrue(answer.contains("Общий чат — общение игроков"));
+        assertTrue(answer.contains("Общий чат — Общение игроков"));
     }
 
     @Test
@@ -49,6 +49,6 @@ public class ChatsCommandTest {
 
         String helpAnswer = registry.find("help").get().execute("");
 
-        assertTrue(helpAnswer.contains("/chats — Чаты сервера со ссылками"));
+        assertTrue(helpAnswer.contains("/chats - Чаты сервера со ссылками"));
     }
 }
