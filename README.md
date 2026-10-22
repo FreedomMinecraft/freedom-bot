@@ -221,8 +221,11 @@ Telegram-бот для Minecraft-сервера **FREEDOM** — двухфакт
 |---|---|
 | Язык | Java 21 |
 | Сборка и зависимости | Apache Maven |
-| Платформа | Telegram Bot API |
-| Тесты | JUnit |
+| Платформа | Telegram Bot API (библиотека TelegramBots) |
+| Данные | JSON (Jackson) |
+| Логирование | SLF4J |
+| Тесты | JUnit 5 |
+| Хостинг | bothost.ru (Docker) |
 
 ---
 
@@ -231,23 +234,24 @@ Telegram-бот для Minecraft-сервера **FREEDOM** — двухфакт
 ```bash
 git clone https://github.com/FreedomMinecraft/freedom-bot.git
 cd freedom-bot
+mvn clean package
 ```
 
-Скопировать `config.properties.example` в `config.properties` и вписать туда токен бота, полученный у BotFather (https://t.me/BotFather):
-
-```properties
-bot.token=ВАШ_ТОКЕН
-bot.username=ИМЯ_БОТА
-```
-
-Файл `config.properties` добавлен в `.gitignore` и в репозиторий не попадает — токен остаётся только на вашей машине.
-
-Собрать и запустить:
+Токен бота, полученный у [@BotFather](https://t.me/BotFather), передаётся через переменную окружения `BOT_TOKEN` — в коде и в файлах репозитория его нет.
 
 ```bash
-mvn clean package
-java -jar bot/target/freedom-bot.jar
+# Linux / macOS
+BOT_TOKEN=ваш_токен java -jar bot/target/freedom-bot.jar
 ```
+
+```powershell
+# Windows (PowerShell)
+$env:BOT_TOKEN="ваш_токен"; java -jar bot/target/freedom-bot.jar
+```
+
+В IntelliJ IDEA токен задаётся в Run Configuration → Environment variables.
+
+Рабочий бот развёрнут на хостинге, инструкция — [docs/deploy.md](docs/deploy.md). Для локальной разработки нужен отдельный тестовый бот со своим токеном: один токен не может работать в двух местах одновременно.
 
 ---
 
@@ -259,8 +263,10 @@ java -jar bot/target/freedom-bot.jar
 freedom-bot/
 ├── pom.xml          # родительский: версия Java, версии библиотек, список модулей
 ├── common/          # общий код бота и плагина (форматы данных, категории уведомлений)
-├── bot/             # Telegram-бот
+├── bot/             # Telegram-бот; данные о сервере — bot/src/main/resources/server-info.json
 ├── plugin/          # плагин для сервера Paper/Purpur 1.21.10 (появится позже)
+├── docs/            # документация: деплой бота
+├── Dockerfile       # сборка и запуск бота на хостинге
 └── .github/         # CI (сборка и тесты на каждый PR) и шаблон Pull Request
 ```
 
