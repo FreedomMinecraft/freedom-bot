@@ -3,6 +3,7 @@ package ru.freedomminecraft.bot.serverinfo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,25 +18,25 @@ class JsonServerInfoSourceTest {
         ServerInfo info = load("/server-info-test.json");
 
         assertEquals(2, info.admins().size());
-        assertEquals("TestAdmin", info.admins().get(0).nickname());
-        assertEquals("Администратор", info.admins().get(0).position());
+        assertEquals("TestAdmin", info.admins().getFirst().nickname());
+        assertEquals("Администратор", info.admins().getFirst().position());
         assertEquals(1, info.eventors().size());
         assertEquals(1, info.media().size());
-        assertEquals("Тестовый чат", info.chats().get(0).name());
-        assertEquals("https://t.me/test_bot", info.support().get(0).url());
+        assertEquals("Тестовый чат", info.chats().getFirst().name());
+        assertEquals("https://t.me/test_bot", info.support().getFirst().url());
     }
 
     @Test
     void readsMediaLinks() {
-        TeamMember streamer = load("/server-info-test.json").media().get(0);
+        TeamMember streamer = load("/server-info-test.json").media().getFirst();
 
-        assertEquals("Twitch", streamer.links().get(0).title());
-        assertEquals("https://www.twitch.tv/test", streamer.links().get(0).url());
+        assertEquals("Twitch", streamer.links().getFirst().title());
+        assertEquals("https://www.twitch.tv/test", streamer.links().getFirst().url());
     }
 
     @Test
     void memberWithoutLinksGetsEmptyList() {
-        TeamMember admin = load("/server-info-test.json").admins().get(0);
+        TeamMember admin = load("/server-info-test.json").admins().getFirst();
 
         assertTrue(admin.links().isEmpty());
     }
@@ -48,5 +49,13 @@ class JsonServerInfoSourceTest {
     @Test
     void fileWithoutSectionThrows() {
         assertThrows(IllegalStateException.class, () -> load("/server-info-without-chats.json"));
+    }
+
+    @Test
+    void realDataFileIsValid() {
+        ServerInfo info = load(JsonServerInfoSource.DEFAULT_RESOURCE);
+
+        assertFalse(info.admins().isEmpty());
+        assertFalse(info.chats().isEmpty());
     }
 }

@@ -1,0 +1,185 @@
+{
+    "admins": [
+        { "nickname": "ZloydadaEF", "position": "Администратор" },
+        { "nickname": "dejrh", "position": "Старший модератор" },
+        { "nickname": "gnomina471", "position": "Модератор" },
+        { "nickname": "nactavnik", "position": "Модератор" },
+        { "nickname": "a_yukio", "position": "Модератор" },
+        { "nickname": "Popka_eja", "position": "Модератор" },
+        { "nickname": "_CraftWoker_", "position": "Модератор" },
+        { "nickname": "alekdora", "position": "Модератор" },
+        { "nickname": "SpidorMen", "position": "Модератор" },
+        { "nickname": "DemureChester", "position": "Хелпер" },
+        { "nickname": "XX_LeX123777_XX", "position": "Хелпер" },
+        { "nickname": "NightGeneration", "position": "Хелпер" },
+        { "nickname": "azukoe", "position": "Хелпер" }
+    ],
+    "eventors": [
+        { "nickname": "javorVv", "position": "Главный ивентор" },
+        { "nickname": "girochka_", "position": "Главный ивентор" },
+        { "nickname": "lsdsex", "position": "Ивентор" },
+        { "nickname": "luriksflower", "position": "Ивентор" },
+        { "nickname": "ffgdanga", "position": "Ивентор" }
+    ],
+    "media": [
+        {
+            "nickname": "Apollodance",
+            "position": "Медиа-менеджер",
+            "links": [
+                { "title": "Twitch", "url": "https://www.twitch.tv/apollodancekid" },
+                { "title": "Telegram", "url": "https://t.me/apollodance" }
+            ]
+        },
+        {
+            "nickname": "dejrh",
+            "position": "Медиа",
+            "links": [
+                { "title": "Twitch", "url": "https://www.twitch.tv/4iken007" },
+                { "title": "Telegram", "url": "https://t.me/S4iken007" }
+            ]
+        },
+        {
+            "nickname": "nactavnik",
+            "position": "Медиа",
+            "links": [
+                { "title": "TikTok", "url": "https://www.tiktok.com/@nactavnik" },
+                { "title": "YouTube", "url": "https://www.youtube.com/@nactavnik_freedom" },
+                { "title": "Twitch", "url": "https://www.twitch.tv/nactavnik" },
+                { "title": "Telegram", "url": "https://t.me/nactavnik" }
+            ]
+        },
+        {
+            "nickname": "homa0_0",
+            "position": "Медиа",
+            "links": [
+                { "title": "Twitch", "url": "https://www.twitch.tv/homazxc52" },
+                { "title": "Telegram", "url": "https://t.me/homazxc52" }
+            ]
+        },
+        {
+            "nickname": "game_demon50",
+            "position": "Медиа",
+            "links": [
+                { "title": "Twitch", "url": "https://www.twitch.tv/game_demon50" },
+                { "title": "Telegram", "url": "https://t.me/komorocha" }
+            ]
+        },
+        {
+            "nickname": "BrigettaLalond",
+            "position": "Медиа",
+            "links": [
+                { "title": "Twitch", "url": "https://www.twitch.tv/brigettalalond" },
+                { "title": "Telegram", "url": "https://t.me/brigettala" }
+            ]
+        },
+        {
+            "nickname": "of_waiver",
+            "position": "Медиа",
+            "links": [
+                { "title": "Twitch", "url": "https://www.twitch.tv/of_waiver" },
+                { "title": "Telegram", "url": "https://t.me/of_waiver" }
+            ]
+        },
+        {
+            "nickname": "_Reylin_",
+            "position": "Медиа",
+            "links": [
+                { "title": "Twitch", "url": "https://www.twitch.tv/7reylin7" },
+                { "title": "Telegram", "url": "https://t.me/ReylinBox" }
+            ]
+        },
+        {
+            "nickname": "Sofex1926_",
+            "position": "Медиа",
+            "links": [
+                { "title": "Twitch", "url": "https://www.twitch.tv/sofex1926" },
+                { "title": "Telegram", "url": "https://t.me/AbysSsofex" }
+            ]
+        },
+        {
+            "nickname": "kittenokYT55",
+            "position": "Медиа",
+            "links": [
+                { "title": "YouTube", "url": "https://www.youtube.com/@kittenok" },
+                { "title": "TikTok", "url": "https://www.tiktok.com/@bebebemuhehekovich" },
+                { "title": "Telegram", "url": "https://t.me/LChPoyasnyaet" }
+            ]
+        },
+        {
+            "nickname": "fizz0_0",
+            "position": "Медиа",
+            "links": [
+                { "title": "TikTok", "url": "https://www.tiktok.com/@fizz0_9" },
+                { "title": "YouTube", "url": "https://www.youtube.com/@fizz0_9" },
+                { "title": "Telegram", "url": "https://t.me/fizzXDd" }
+            ]
+        },
+        {
+            "nickname": "ciberpupsik",
+            "position": "Медиа",
+            "links": [
+                { "title": "TikTok", "url": "https://www.tiktok.com/@megasvinultra" }
+            ]
+        },
+        {
+            "nickname": "1mlazzzy",
+            "position": "Медиа",
+            "links": [
+                { "title": "TikTok", "url": "https://www.tiktok.com/@1mlazzzy_" },
+                { "title": "YouTube", "url": "https://www.youtube.com/@1mlazzzy" },
+                { "title": "Telegram", "url": "https://t.me/lazzzypatrick" }
+            ]
+        },
+        {
+            "nickname": "_l0ss",
+            "position": "Медиа",
+            "links": [
+                { "title": "Telegram", "url": "https://t.me/Father_Reint" }
+            ]
+        },
+        {
+            "nickname": "qw1x_xz",
+            "position": "Медиа",
+            "links": [
+                { "title": "TikTok", "url": "https://www.tiktok.com/@yutaaajjk" },
+                { "title": "YouTube", "url": "https://www.youtube.com/@qw1xxx645" }
+            ]
+        },
+        {
+            "nickname": "ClanfysYT",
+            "position": "Медиа",
+            "links": [
+                { "title": "YouTube", "url": "https://www.youtube.com/@clanfys" }
+            ]
+        },
+        {
+            "nickname": "DeathGuide",
+            "position": "Медиа",
+            "links": [
+                { "title": "TikTok", "url": "https://www.tiktok.com/@nearlit" },
+                { "title": "Twitch", "url": "https://www.twitch.tv/atam079" },
+                { "title": "Telegram", "url": "https://t.me/Atam079twich" }
+            ]
+        },
+        {
+            "nickname": "Trylsecs",
+            "position": "Медиа",
+            "links": [
+                { "title": "Twitch", "url": "https://www.twitch.tv/trylsecs" },
+                { "title": "Telegram", "url": "https://t.me/trylsecs" }
+            ]
+        }
+    ],
+    "chats": [
+        { "name": "Telegram-канал", "description": "Новости сервера", "url": "https://t.me/freedom_minecraft" },
+        { "name": "Telegram-чат", "description": "Общение игроков", "url": "https://t.me/+4hWkqhlp9LUxOTky" },
+        { "name": "Discord", "description": "Общение, новости и тикеты поддержки", "url": "https://discord.gg/cMN8D4FmPx" },
+        { "name": "ВКонтакте", "description": "Сообщество сервера", "url": "https://vk.ru/etr_freedom" },
+        { "name": "MAX", "description": "Чат сервера", "url": "https://max.ru/join/TB7EZ3mReewsPZ5dhL0-i6L0MkIZ4nIhAkkcGAeCdsc" }
+    ],
+    "support": [
+        { "title": "Бот поддержки", "url": "https://t.me/freedom_ticket_bot" },
+        { "title": "Сообщения Telegram-канала", "url": "https://t.me/freedom_minecraft" },
+        { "title": "Тикеты в Discord", "url": "https://discord.gg/cMN8D4FmPx" }
+    ]
+}
