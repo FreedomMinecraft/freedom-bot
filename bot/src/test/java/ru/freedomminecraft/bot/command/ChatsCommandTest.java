@@ -33,6 +33,16 @@ public class ChatsCommandTest {
     }
 
     @Test
+    void escapesLinks(){
+        ChatsCommand withAmpersand = new ChatsCommand(List.of(
+            new Chat("Чат", "Общение", "https://example.com/?a=1&b=2")));
+
+        String answer = withAmpersand.execute("");
+
+        assertTrue(answer.contains("https://example.com/?a=1&amp;b=2"));
+    }
+
+    @Test
     void emptyListSaysSo(){
         ChatsCommand empty = new ChatsCommand(List.of());
 

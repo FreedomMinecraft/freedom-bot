@@ -1,5 +1,7 @@
 package ru.freedomminecraft.bot.command;
 
+import ru.freedomminecraft.bot.format.Html;
+
 import java.util.Optional;
 
 public class HelpCommand implements Command{
@@ -27,7 +29,7 @@ public class HelpCommand implements Command{
                 text.append("/")
                     .append(command.name())
                     .append(" - ")
-                    .append(command.description())
+                    .append(Html.escape(command.description()))
                     .append("\n");
             }
             return text.toString();
@@ -36,8 +38,8 @@ public class HelpCommand implements Command{
         Optional<Command> found = registry.find(commandName);
         if (found.isPresent()){
             Command command = found.get();
-            return "/" + command.name() + " - " + command.description();
+            return "/" + command.name() + " - " + Html.escape(command.description());
         }
-        return "Нет такой команды: " + commandName + ". Напиши /help, чтобы увидеть список команд.";
+        return "Нет такой команды: " + Html.escape(commandName) + ". Напиши /help, чтобы увидеть список команд.";
     }
 }

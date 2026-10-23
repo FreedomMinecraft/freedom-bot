@@ -75,4 +75,18 @@ public class HelpCommandTest {
 
         assertEquals(help.execute("ping"), help.execute("PING"));
     }
+
+    @Test
+    void escapesDescriptionsInList() {
+        String answer = help.execute("");
+
+        assertTrue(answer.contains("help &lt;команда&gt;"));
+    }
+
+    @Test
+    void escapesUnknownCommandName() {
+        String answer = help.execute("<b>");
+
+        assertTrue(answer.contains("Нет такой команды: &lt;b&gt;"));
+    }
 }

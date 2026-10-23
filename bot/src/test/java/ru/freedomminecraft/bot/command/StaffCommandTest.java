@@ -40,6 +40,17 @@ public class StaffCommandTest {
     }
 
     @Test
+    void escapesMemberData(){
+        StaffCommand staff = new StaffCommand(
+            "admins", "Админ-состав сервера", "Админ-состав FREEDOM:",
+            List.of(new TeamMember("<Ник>", "Модератор & хелпер", List.of())));
+
+        String answer = staff.execute("");
+
+        assertTrue(answer.contains("&lt;Ник&gt; — Модератор &amp; хелпер"));
+    }
+
+    @Test
     void emptyListSaysSo(){
         StaffCommand empty = new StaffCommand("admins", "Админ-состав сервера", "Админ-состав FREEDOM:", List.of());
 

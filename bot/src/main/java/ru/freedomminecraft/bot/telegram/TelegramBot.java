@@ -10,6 +10,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 
 import ru.freedomminecraft.bot.command.CommandDispatcher;
 
@@ -23,6 +24,7 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
         SendMessage message = SendMessage.builder()
             .chatId(chatId)
             .text(text)
+            .parseMode(ParseMode.HTML)
             .build();
         try {
             client.execute(message);
