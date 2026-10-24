@@ -1,6 +1,8 @@
 package ru.freedomminecraft.bot.command;
 
 import java.util.List;
+
+import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Link;
 import ru.freedomminecraft.bot.serverinfo.TeamMember;
 
@@ -35,15 +37,15 @@ public class StaffCommand implements Command{
         StringBuilder text = new StringBuilder(title).append("\n");
         for (TeamMember member : members){
             text.append("• ")
-                .append(member.nickname())
+                .append(Html.escape(member.nickname()))
                 .append(" — ")
-                .append(member.position())
+                .append(Html.escape(member.position()))
                 .append("\n");
             for(Link link : member.links()){
                 text.append("    ")
-                    .append(link.title())
+                    .append(Html.escape(link.title()))
                     .append(": ")
-                    .append(link.url())
+                    .append(Html.escape(link.url()))
                     .append("\n");
             }
         }

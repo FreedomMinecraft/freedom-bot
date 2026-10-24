@@ -1,6 +1,8 @@
 package ru.freedomminecraft.bot.command;
 
 import java.util.List;
+
+import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Chat;
 
 public class ChatsCommand implements Command{
@@ -28,11 +30,11 @@ public class ChatsCommand implements Command{
         StringBuilder text = new StringBuilder("Чаты сервера:\n");
         for (Chat chat : chats){
             text.append("• ")
-                .append(chat.name())
+                .append(Html.escape(chat.name()))
                 .append(" — ")
-                .append(chat.description())
+                .append(Html.escape(chat.description()))
                 .append("\n")
-                .append(chat.url())
+                .append(Html.escape(chat.url()))
                 .append("\n\n");
         }
         return text.toString();

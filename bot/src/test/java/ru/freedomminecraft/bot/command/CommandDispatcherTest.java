@@ -71,6 +71,13 @@ public class CommandDispatcherTest {
     }
 
     @Test
+    void escapesUnknownCommandName() {
+        assertEquals(
+            Optional.of("Неизвестная команда /&lt;b&gt;. Список команд: /help"),
+            dispatcher.dispatch("/<b>"));
+    }
+
+    @Test
     void ignoresPlainText() {
         assertTrue(dispatcher.dispatch("привет").isEmpty());
     }
