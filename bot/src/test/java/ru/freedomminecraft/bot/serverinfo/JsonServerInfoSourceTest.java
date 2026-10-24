@@ -18,8 +18,8 @@ class JsonServerInfoSourceTest {
         ServerInfo info = load("/server-info-test.json");
 
         assertEquals(2, info.admins().size());
-        assertEquals("TestAdmin", info.admins().getFirst().nickname());
-        assertEquals("Администратор", info.admins().getFirst().position());
+        assertEquals("Администратор", info.admins().getFirst().title());
+        assertEquals("TestAdmin", info.admins().getFirst().members().getFirst().nickname());
         assertEquals(1, info.eventors().size());
         assertEquals(1, info.media().size());
         assertEquals("Тестовый чат", info.chats().getFirst().name());
@@ -27,8 +27,17 @@ class JsonServerInfoSourceTest {
     }
 
     @Test
+    void keepsGroupsAndMembersInFileOrder() {
+        StaffGroup moderators = load("/server-info-test.json").admins().get(1);
+
+        assertEquals("Модераторы", moderators.title());
+        assertEquals("TestModer", moderators.members().get(0).nickname());
+        assertEquals("TestModer2", moderators.members().get(1).nickname());
+    }
+
+    @Test
     void readsMediaLinks() {
-        TeamMember streamer = load("/server-info-test.json").media().getFirst();
+        TeamMember streamer = load("/server-info-test.json").media().getFirst().members().getFirst();
 
         assertEquals("Twitch", streamer.links().getFirst().title());
         assertEquals("https://www.twitch.tv/test", streamer.links().getFirst().url());
@@ -36,7 +45,7 @@ class JsonServerInfoSourceTest {
 
     @Test
     void memberWithoutLinksGetsEmptyList() {
-        TeamMember admin = load("/server-info-test.json").admins().getFirst();
+        TeamMember admin = load("/server-info-test.json").admins().getFirst().members().getFirst();
 
         assertTrue(admin.links().isEmpty());
     }
@@ -49,6 +58,11 @@ class JsonServerInfoSourceTest {
     @Test
     void fileWithoutSectionThrows() {
         assertThrows(IllegalStateException.class, () -> load("/server-info-without-chats.json"));
+    }
+
+    @Test
+    void groupWithoutMembersThrows() {
+        assertThrows(IllegalStateException.class, () -> load("/server-info-group-without-members.json"));
     }
 
     @Test

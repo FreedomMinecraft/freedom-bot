@@ -1,17 +1,37 @@
 {
     "admins": [
-        { "nickname": "TestAdmin", "position": "Администратор" },
-        { "nickname": "TestModer", "position": "Модератор" }
+        {
+            "title": "Администратор",
+            "members": [
+                { "nickname": "TestAdmin" }
+            ]
+        },
+        {
+            "title": "Модераторы",
+            "members": [
+                { "nickname": "TestModer" },
+                { "nickname": "TestModer2" }
+            ]
+        }
     ],
     "eventors": [
-        { "nickname": "TestEventor", "position": "Ивентор" }
+        {
+            "title": "Ивентор",
+            "members": [
+                { "nickname": "TestEventor" }
+            ]
+        }
     ],
     "media": [
         {
-            "nickname": "TestStreamer",
-            "position": "Медиа",
-            "links": [
-                { "title": "Twitch", "url": "https://www.twitch.tv/test" }
+            "title": "Медиа",
+            "members": [
+                {
+                    "nickname": "TestStreamer",
+                    "links": [
+                        { "title": "Twitch", "url": "https://www.twitch.tv/test" }
+                    ]
+                }
             ]
         }
     ],
