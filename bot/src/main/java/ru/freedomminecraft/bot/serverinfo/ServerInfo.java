@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Objects;
 
 public record ServerInfo(
-        List<TeamMember> admins,
-        List<TeamMember> eventors,
-        List<TeamMember> media,
+        List<StaffGroup> admins,
+        List<StaffGroup> eventors,
+        List<StaffGroup> media,
         List<Chat> chats,
         List<Link> support) {
     public ServerInfo {
