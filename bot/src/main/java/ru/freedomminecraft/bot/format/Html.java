@@ -1,6 +1,5 @@
 package ru.freedomminecraft.bot.format;
 
-import jdk.nio.mapmode.ExtendedMapMode;
 
 public final class Html {
     public static final String BULLET = "▫️ ";
