@@ -1,16 +1,19 @@
 package ru.freedomminecraft.bot.command;
 
+import ru.freedomminecraft.bot.format.Emoji;
+import ru.freedomminecraft.bot.format.Html;
+
 public class AuthorCommand implements Command {
     @Override
     public String name() { return "author"; }
 
     @Override
-    public String description() { return "информация об авторах бота";}
+    public String description() { return "Информация об авторах бота";}
 
     @Override
     public String execute(String argument){
-        return "Авторы Freedom Bot:\n"
-            + "Рещиков Андрей - @yuknowni\n"
-            + "Потапов Вадим - @ivyxide";
+        return Html.title(Emoji.STAR, "АВТОРЫ БОТА") + "\n\n"
+            + Html.BULLET + "Рещиков Андрей — @yuknowni\n"
+            + Html.BULLET + "Потапов Вадим — @ivyxide";
     }
 }

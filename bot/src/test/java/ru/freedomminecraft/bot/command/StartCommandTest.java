@@ -28,6 +28,13 @@ public class StartCommandTest {
     }
 
     @Test
+    void usesPremiumEmoji(){
+        String answer = start.execute("");
+
+        assertTrue(answer.contains("<tg-emoji"));
+    }
+
+    @Test
     void appearsInHelpAutomatically(){
         CommandRegistry registry = new CommandRegistry();
         registry.register(new HelpCommand(registry));
