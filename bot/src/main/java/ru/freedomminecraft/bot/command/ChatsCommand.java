@@ -1,7 +1,7 @@
 package ru.freedomminecraft.bot.command;
 
 import java.util.List;
-
+import ru.freedomminecraft.bot.format.Emoji;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Chat;
 
@@ -19,24 +19,22 @@ public class ChatsCommand implements Command{
 
     @Override
     public String description(){
-        return "Чаты сервера со ссылками";
+        return "Чаты и каналы сервера";
     }
 
     @Override
     public String execute(String argument){
+        StringBuilder text = new StringBuilder(Html.title(Emoji.SPEECH, "ЧАТЫ И КАНАЛЫ FREEDOM")).append("\n\n");
         if (chats.isEmpty()){
-            return "Чаты сервера:\nСписок пока пуст.";
+            return text.append("Список пока пуст.").toString();
         }
-        StringBuilder text = new StringBuilder("Чаты сервера:\n");
         for (Chat chat : chats){
-            text.append("• ")
-                .append(Html.escape(chat.name()))
+            text.append(Html.BULLET)
+                .append(Html.link(chat.name(), chat.url()))
                 .append(" — ")
                 .append(Html.escape(chat.description()))
-                .append("\n")
-                .append(Html.escape(chat.url()))
-                .append("\n\n");
+                .append("\n");
         }
-        return text.toString();
+        return text.toString().strip();
     }
 }

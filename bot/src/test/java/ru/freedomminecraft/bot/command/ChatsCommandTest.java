@@ -2,6 +2,7 @@ package ru.freedomminecraft.bot.command;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Chat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +22,7 @@ public class ChatsCommandTest {
     void showsNameAndDescription(){
         String answer = chats.execute("");
 
-        assertTrue(answer.contains("Общий чат — Общение игроков"));
+        assertTrue(answer.contains(Html.link("Общий чат", "https://t.me/example_chat") + " — Общение игроков"));
     }
 
     @Test
@@ -59,6 +60,6 @@ public class ChatsCommandTest {
 
         String helpAnswer = registry.find("help").get().execute("");
 
-        assertTrue(helpAnswer.contains("/chats - Чаты сервера со ссылками"));
+        assertTrue(helpAnswer.contains("/chats - Чаты и каналы сервера"));
     }
 }

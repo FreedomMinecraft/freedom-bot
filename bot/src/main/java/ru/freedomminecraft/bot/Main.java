@@ -20,17 +20,18 @@ public class Main {
     public static void main(String[] args) throws TelegramApiException {
         BotConfig config = BotConfig.fromEnvironment(System.getenv());
 
+        ServerInfo info = new JsonServerInfoSource(JsonServerInfoSource.DEFAULT_RESOURCE).load();
+
         CommandRegistry registry = new CommandRegistry();
+        registry.register(new StartCommand());
         registry.register(new HelpCommand(registry));
         registry.register(new AboutCommand());
-        registry.register(new AuthorCommand());
-        registry.register(new PingCommand());
-        registry.register(new StartCommand());
-        ServerInfo info = new JsonServerInfoSource(JsonServerInfoSource.DEFAULT_RESOURCE).load();
+        registry.register(new AdminsCommand(info.admins(), info.support()));
+        registry.register(new EventorsCommand(info.eventors()));
+        registry.register(new MediaCommand(info.media()));
         registry.register(new ChatsCommand(info.chats()));
-        registry.register(new StaffCommand("admins", "Админ-состав сервера", "Админ-состав FREEDOM:", info.admins()));
-        registry.register(new StaffCommand("eventors", "Ивенторы сервера", "Ивенторы FREEDOM:", info.eventors()));
-        registry.register(new StaffCommand("media", "Медиа-состав сервера", "Медиа-состав FREEDOM:", info.media()));
+        registry.register(new PingCommand());
+        registry.register(new AuthorCommand());
 
         CommandDispatcher dispatcher = new CommandDispatcher(new CommandParser(), registry);
         TelegramClient client = new OkHttpTelegramClient(config.token());
