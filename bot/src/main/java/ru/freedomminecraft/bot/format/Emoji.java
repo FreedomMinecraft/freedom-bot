@@ -32,6 +32,6 @@ public enum Emoji {
     }
 
     public String html() {
-        return "<tg-emoji emoji-id=\"" + id + "\">" + fallback + "</tg-emoji";
+        return "<tg-emoji emoji-id=\"" + id + "\">" + fallback + "</tg-emoji>";
     }
 }

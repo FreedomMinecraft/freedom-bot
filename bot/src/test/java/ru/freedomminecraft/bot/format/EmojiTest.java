@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EmojiTest {
     @Test
     void htmlIsTelegramCustomEmojiTag() {
-        assertEquals("<tg-emoji emoji-id=\"5411394265924257943\">👋</tg-emoji", Emoji.WAVE.html());
+        assertEquals("<tg-emoji emoji-id=\"5411394265924257943\">👋</tg-emoji>", Emoji.WAVE.html());
     }
 
     @Test
