@@ -1,6 +1,7 @@
 package ru.freedomminecraft.bot.command;
 
 import ru.freedomminecraft.bot.format.Html;
+import ru.freedomminecraft.bot.format.Emoji;
 
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ public class CommandDispatcher {
         Optional<Command> command = registry.find(parsedCommand.name());
         if (command.isEmpty()) {
             log.info("Неизвестная команда: /{}", parsedCommand.name());
-            return Optional.of("Неизвестная команда /" + Html.escape(parsedCommand.name()) + ". Список команд: /help");
+            return Optional.of(Emoji.THINKING.html() + " Не знаю команду /" + Html.escape(parsedCommand.name()) + ". Все команды — /help");
         }
 
         log.info("Команда: /{}", parsedCommand.name());
@@ -35,7 +36,7 @@ public class CommandDispatcher {
             return Optional.of(command.get().execute(parsedCommand.argument()));
         } catch (RuntimeException e){
             log.error("Ошибка при выполнении команды /{}", parsedCommand.name(), e);
-            return Optional.of("Ошибка при выполнении команды /" + Html.escape(parsedCommand.name()) + ". Попробуйте позже.");
+            return Optional.of(Emoji.TOOLS.html() + " Не получилось выполнить /" + Html.escape(parsedCommand.name()) + ". Попробуйте чуть позже.");
         }
     }
 }

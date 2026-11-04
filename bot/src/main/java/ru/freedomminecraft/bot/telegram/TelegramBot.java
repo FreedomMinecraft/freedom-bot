@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import org.telegram.telegrambots.longpolling.util.DefaultLongPollingUpdateConsumer;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.LinkPreviewOptions;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
@@ -25,6 +26,7 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
             .chatId(chatId)
             .text(text)
             .parseMode(ParseMode.HTML)
+            .linkPreviewOptions(LinkPreviewOptions.builder().isDisabled(true).build())
             .build();
         try {
             client.execute(message);

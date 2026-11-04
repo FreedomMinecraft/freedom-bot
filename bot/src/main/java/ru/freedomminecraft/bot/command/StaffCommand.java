@@ -1,58 +1,58 @@
 package ru.freedomminecraft.bot.command;
 
 import java.util.List;
-
+import java.util.StringJoiner;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Link;
-import ru.freedomminecraft.bot.serverinfo.TeamMember;
 import ru.freedomminecraft.bot.serverinfo.StaffGroup;
+import ru.freedomminecraft.bot.serverinfo.TeamMember;
 
-public class StaffCommand implements Command{
-    private final String name;
-    private final String description;
-    private final String title;
+/**
+ * Общая основа команд со списком людей по группам: /admins, /eventors, /media.
+ * Порядок ответа задан здесь: заголовок, группы, подвал.
+ * Наследник решает только, какие у него заголовок и подвал.
+ */
+public abstract class StaffCommand implements Command {
     private final List<StaffGroup> groups;
 
-    public StaffCommand(String name, String description, String title, List<StaffGroup> groups){
-        this.name = name;
-        this.description = description;
-        this.title = title;
+    protected StaffCommand(List<StaffGroup> groups) {
         this.groups = List.copyOf(groups);
     }
 
-    @Override
-    public String name(){
-        return name;
+    /** Начало ответа в HTML. */
+    protected abstract String header();
+
+    /** Конец ответа в HTML. По умолчанию пусто. */
+    protected String footer() {
+        return "";
     }
 
     @Override
-    public String description(){
-        return description;
-    }
-
-    @Override
-    public String execute(String argument){
+    public final String execute(String argument) {
+        StringBuilder text = new StringBuilder(header()).append("\n\n");
         if (groups.isEmpty()) {
-            return title + "\nСписок пока пуст.";
+            text.append("Список пока пуст.\n");
         }
-        StringBuilder text = new StringBuilder(title).append("\n");
-        for (StaffGroup group : groups){
-            text.append("\n")
-                .append(Html.escape(group.title()))
-                .append(":\n");
-            for(TeamMember member : group.members()){
-                text.append("• ")
-                    .append(Html.escape(member.nickname()))
-                    .append("\n");
-                for (Link link : member.links()) {
-                    text.append("    ")
-                        .append(Html.escape(link.title()))
-                        .append(": ")
-                        .append(Html.escape(link.url()))
-                        .append("\n");
+        for (StaffGroup group : groups) {
+            text.append(Html.bold(group.title())).append("\n");
+            for (TeamMember member : group.members()) {
+                text.append(Html.BULLET).append(Html.escape(member.nickname()));
+                if (!member.links().isEmpty()) {
+                    text.append(" — ").append(links(member.links()));
                 }
+                text.append("\n");
             }
+            text.append("\n");
         }
-        return text.toString();
+        text.append(footer());
+        return text.toString().strip();
+    }
+
+    private static String links(List<Link> links) {
+        StringJoiner joiner = new StringJoiner(" · ");
+        for (Link link : links) {
+            joiner.add(Html.link(link.title(), link.url()));
+        }
+        return joiner.toString();
     }
 }

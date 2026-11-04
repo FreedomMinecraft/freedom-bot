@@ -26,4 +26,11 @@ public class AboutCommandTest {
 
         assertTrue(answer.contains("/help"));
     }
+
+    @Test
+    void serverAddressCanBeCopied(){
+        String answer = about.execute("");
+
+        assertTrue(answer.contains("<code>freedom.servop.ru</code>"));
+    }
 }

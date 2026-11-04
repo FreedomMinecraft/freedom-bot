@@ -45,7 +45,7 @@ public class HelpCommandTest {
 
         String answer = help.execute("ping");
 
-        assertEquals("/ping - Проверить, что бот на связи", answer);
+        assertEquals("/ping — Проверить, что бот на связи", answer);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class HelpCommandTest {
     void reportsUnknownCommand(){
         String answer = help.execute("fly");
 
-        assertTrue(answer.contains("Нет такой команды: fly"));
+        assertTrue(answer.contains("Нет команды «fly»"));
     }
 
     @Test
@@ -87,6 +87,6 @@ public class HelpCommandTest {
     void escapesUnknownCommandName() {
         String answer = help.execute("<b>");
 
-        assertTrue(answer.contains("Нет такой команды: &lt;b&gt;"));
+        assertTrue(answer.contains("Нет команды «&lt;b&gt;»"));
     }
 }

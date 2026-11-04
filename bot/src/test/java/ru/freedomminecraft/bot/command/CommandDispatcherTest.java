@@ -67,14 +67,17 @@ public class CommandDispatcherTest {
 
     @Test
     void repliesToUnknownCommand() {
-        assertEquals(Optional.of("Неизвестная команда /ogogo. Список команд: /help"), dispatcher.dispatch("/ogogo"));
+        String answer = dispatcher.dispatch("/ogogo").orElseThrow();
+
+        assertTrue(answer.contains("Не знаю команду /ogogo"));
+        assertTrue(answer.contains("/help"));
     }
 
     @Test
     void escapesUnknownCommandName() {
-        assertEquals(
-            Optional.of("Неизвестная команда /&lt;b&gt;. Список команд: /help"),
-            dispatcher.dispatch("/<b>"));
+        String answer = dispatcher.dispatch("/<b>").orElseThrow();
+
+        assertTrue(answer.contains("Не знаю команду /&lt;b&gt;"));
     }
 
     @Test
@@ -89,9 +92,9 @@ public class CommandDispatcherTest {
 
     @Test
     void repliesWithErrorWhenCommandFails() {
-        assertEquals(
-            Optional.of("Ошибка при выполнении команды /broken. Попробуйте позже."),
-            dispatcher.dispatch("/broken"));
+        String answer = dispatcher.dispatch("/broken").orElseThrow();
+
+        assertTrue(answer.contains("Не получилось выполнить /broken"));
     }
 
     @Test
