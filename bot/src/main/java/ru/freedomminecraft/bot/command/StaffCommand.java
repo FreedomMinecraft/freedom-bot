@@ -28,6 +28,11 @@ public abstract class StaffCommand implements Command {
     }
 
     @Override
+    public CommandGroup group() {
+        return CommandGroup.GUIDE;
+    }
+
+    @Override
     public final String execute(String argument) {
         StringBuilder text = new StringBuilder(header()).append("\n\n");
         if (groups.isEmpty()) {

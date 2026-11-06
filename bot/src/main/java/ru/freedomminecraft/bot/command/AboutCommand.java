@@ -15,6 +15,11 @@ public class AboutCommand implements Command{
     }
 
     @Override
+    public CommandGroup group () {
+        return CommandGroup.BASIC;
+    }
+
+    @Override
     public String execute(String argument){
         return Html.title(Emoji.ROBOT, "FREEDOM BOT") + "\n\n"
             + "Бот Minecraft-сервера FREEDOM.\n\n"

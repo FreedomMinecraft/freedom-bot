@@ -23,15 +23,28 @@ public class HelpCommand implements Command{
     }
 
     @Override
+    public CommandGroup group() {
+        return CommandGroup.BASIC;
+    }
+
+    @Override
     public String execute(String argument){
         if (argument == null || argument.isBlank()){
-            StringBuilder text = new StringBuilder(Html.title(Emoji.BOOK, "КОМАНДЫ БОТА")).append("\n\n");
-            for (Command command : registry.all()){
-                text.append("/")
-                    .append(command.name())
-                    .append(" - ")
-                    .append(Html.escape(command.description()))
-                    .append("\n");
+            StringBuilder text = new StringBuilder(Html.title(Emoji.BOOK, "КОМАНДЫ БОТА")).append("\n");
+            for (CommandGroup group : CommandGroup.values()) {
+                StringBuilder lines = new StringBuilder();
+                for (Command command : registry.all()) {
+                    if (command.group() == group) {
+                        lines.append("/")
+                            .append(command.name())
+                            .append(" - ")
+                            .append(Html.escape(command.description()))
+                            .append("\n");
+                    }
+                }
+                if (!lines.isEmpty()) {
+                    text.append("\n").append(lines);
+                }
             }
             return text.toString();
         }
