@@ -37,7 +37,7 @@ public class HelpCommand implements Command{
                     if (command.group() == group) {
                         lines.append("/")
                             .append(command.name())
-                            .append(" - ")
+                            .append(" — ")
                             .append(Html.escape(command.description()))
                             .append("\n");
                     }
