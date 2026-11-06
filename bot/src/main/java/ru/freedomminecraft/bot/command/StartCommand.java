@@ -15,6 +15,11 @@ public class StartCommand implements Command{
     }
 
     @Override
+    public CommandGroup group(){
+        return CommandGroup.BASIC;
+    }
+
+    @Override
     public String execute(String argument){
         return Html.title(Emoji.WAVE, "ДОБРО ПОЖАЛОВАТЬ НА FREEDOM!") + "\n\n"
             + "Я бот сервера — со мной вы не пропустите главное:\n\n"

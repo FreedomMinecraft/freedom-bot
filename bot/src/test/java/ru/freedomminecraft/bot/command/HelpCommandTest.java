@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class HelpCommandTest {
     private CommandRegistry registry;
@@ -81,6 +82,37 @@ public class HelpCommandTest {
         String answer = help.execute("");
 
         assertTrue(answer.contains("help &lt;команда&gt;"));
+    }
+
+    @Test
+    void separatesGroupsWithEmptyLine() {
+        registry.register(new PingCommand());
+
+        String answer = help.execute("");
+
+        assertTrue(answer.contains("\n\n/ping"));
+    }
+
+    @Test
+    void groupsGoInFixedOrderNotInRegistrationOrder() {
+        registry.register(new PingCommand());
+        registry.register(new StartCommand());
+
+        String answer = help.execute("");
+
+        assertTrue(answer.indexOf("/start") < answer.indexOf("/ping"));
+    }
+
+    @Test
+    void emptyGroupsAddNoExtraLines() {
+        String answer = help.execute("");
+
+        assertFalse(answer.contains("\n\n\n"));
+    }
+
+    @Test
+    void commandWithoutGroupGoesToOther() {
+        assertEquals(CommandGroup.OTHER, new PingCommand().group());
     }
 
     @Test

@@ -60,6 +60,6 @@ public class ChatsCommandTest {
 
         String helpAnswer = registry.find("help").get().execute("");
 
-        assertTrue(helpAnswer.contains("/chats - Чаты и каналы сервера"));
+        assertTrue(helpAnswer.contains("/chats — Чаты и каналы сервера"));
     }
 }
