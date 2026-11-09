@@ -32,6 +32,6 @@ public class MediaCommandTest {
 
         String helpAnswer = registry.find("help").get().execute("");
 
-        assertTrue(helpAnswer.contains("/media - Стримеры и блогеры сервера"));
+        assertTrue(helpAnswer.contains("/media — Стримеры и блогеры сервера"));
     }
 }

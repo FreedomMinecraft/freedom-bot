@@ -42,6 +42,6 @@ public class StartCommandTest {
 
         String helpAnswer = registry.find("help").get().execute("");
 
-        assertTrue(helpAnswer.contains("/start - Начать работу с ботом"));
+        assertTrue(helpAnswer.contains("/start — Начать работу с ботом"));
     }
 }

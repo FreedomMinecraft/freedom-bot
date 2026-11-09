@@ -23,6 +23,11 @@ public class ChatsCommand implements Command{
     }
 
     @Override
+    public CommandGroup group() {
+        return CommandGroup.GUIDE;
+    }
+
+    @Override
     public String execute(String argument){
         StringBuilder text = new StringBuilder(Html.title(Emoji.SPEECH, "ЧАТЫ И КАНАЛЫ FREEDOM")).append("\n\n");
         if (chats.isEmpty()){

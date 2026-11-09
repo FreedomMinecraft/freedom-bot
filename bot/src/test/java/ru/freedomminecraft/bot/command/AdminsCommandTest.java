@@ -51,6 +51,6 @@ public class AdminsCommandTest {
 
         String helpAnswer = registry.find("help").get().execute("");
 
-        assertTrue(helpAnswer.contains("/admins - Администрация и поддержка"));
+        assertTrue(helpAnswer.contains("/admins — Администрация и поддержка"));
     }
 }

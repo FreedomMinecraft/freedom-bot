@@ -8,4 +8,8 @@ public interface Command {
      * Данные и ввод через Html.escape()
      */
     String execute(String argument);
+
+    default CommandGroup group() {
+        return CommandGroup.OTHER;
+    }
 }

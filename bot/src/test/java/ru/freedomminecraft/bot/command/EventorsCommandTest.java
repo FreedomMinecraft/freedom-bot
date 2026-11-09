@@ -32,6 +32,6 @@ public class EventorsCommandTest {
 
         String helpAnswer = registry.find("help").get().execute("");
 
-        assertTrue(helpAnswer.contains("/eventors - Ивенторы сервера"));
+        assertTrue(helpAnswer.contains("/eventors — Ивенторы сервера"));
     }
 }
