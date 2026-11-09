@@ -1,4 +1,6 @@
-package ru.freedomminecraft.bot.command;
+package ru.freedomminecraft.bot.command.basic;
+
+import ru.freedomminecraft.bot.command.Command;
 
 public class PingCommand implements Command {
     @Override

@@ -1,5 +1,6 @@
-package ru.freedomminecraft.bot.command;
+package ru.freedomminecraft.bot.command.basic;
 
+import ru.freedomminecraft.bot.command.Command;
 import ru.freedomminecraft.bot.format.Emoji;
 import ru.freedomminecraft.bot.format.Html;
 

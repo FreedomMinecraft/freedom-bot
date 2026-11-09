@@ -1,11 +1,14 @@
-package ru.freedomminecraft.bot.command;
+package ru.freedomminecraft.bot.command.guide;
 
 import java.util.List;
+
+import ru.freedomminecraft.bot.command.Command;
+import ru.freedomminecraft.bot.command.CommandGroup;
 import ru.freedomminecraft.bot.format.Emoji;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Chat;
 
-public class ChatsCommand implements Command{
+public class ChatsCommand implements Command {
     private final List<Chat> chats;
 
     public ChatsCommand(List<Chat> chats){

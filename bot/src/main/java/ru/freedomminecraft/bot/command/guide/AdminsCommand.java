@@ -1,4 +1,4 @@
-package ru.freedomminecraft.bot.command;
+package ru.freedomminecraft.bot.command.guide;
 
 import java.util.List;
 import ru.freedomminecraft.bot.format.Emoji;

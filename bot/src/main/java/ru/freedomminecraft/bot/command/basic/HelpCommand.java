@@ -1,11 +1,15 @@
-package ru.freedomminecraft.bot.command;
+package ru.freedomminecraft.bot.command.basic;
 
+import ru.freedomminecraft.bot.command.Command;
+import ru.freedomminecraft.bot.command.CommandGroup;
+import ru.freedomminecraft.bot.command.CommandParser;
+import ru.freedomminecraft.bot.command.CommandRegistry;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.format.Emoji;
 
 import java.util.Optional;
 
-public class HelpCommand implements Command{
+public class HelpCommand implements Command {
     private final CommandRegistry registry;
 
     public HelpCommand(CommandRegistry registry){

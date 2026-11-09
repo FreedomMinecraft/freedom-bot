@@ -1,7 +1,10 @@
-package ru.freedomminecraft.bot.command;
+package ru.freedomminecraft.bot.command.basic;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.freedomminecraft.bot.command.CommandGroup;
+import ru.freedomminecraft.bot.command.CommandRegistry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -112,7 +115,7 @@ public class HelpCommandTest {
 
     @Test
     void commandWithoutGroupGoesToOther() {
-        assertEquals(CommandGroup.OTHER, new PingCommand().group());
+        Assertions.assertEquals(CommandGroup.OTHER, new PingCommand().group());
     }
 
     @Test

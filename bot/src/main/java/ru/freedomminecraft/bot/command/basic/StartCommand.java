@@ -1,9 +1,11 @@
-package ru.freedomminecraft.bot.command;
+package ru.freedomminecraft.bot.command.basic;
 
+import ru.freedomminecraft.bot.command.Command;
+import ru.freedomminecraft.bot.command.CommandGroup;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.format.Emoji;
 
-public class StartCommand implements Command{
+public class StartCommand implements Command {
     @Override
     public String name() {
         return "start";
