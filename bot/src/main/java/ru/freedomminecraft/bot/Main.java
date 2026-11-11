@@ -9,6 +9,11 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
 import ru.freedomminecraft.bot.command.*;
+import ru.freedomminecraft.bot.command.basic.*;
+import ru.freedomminecraft.bot.command.guide.AdminsCommand;
+import ru.freedomminecraft.bot.command.guide.ChatsCommand;
+import ru.freedomminecraft.bot.command.guide.EventorsCommand;
+import ru.freedomminecraft.bot.command.guide.MediaCommand;
 import ru.freedomminecraft.bot.config.BotConfig;
 import ru.freedomminecraft.bot.serverinfo.JsonServerInfoSource;
 import ru.freedomminecraft.bot.serverinfo.ServerInfo;

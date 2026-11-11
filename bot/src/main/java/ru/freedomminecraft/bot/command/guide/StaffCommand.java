@@ -1,7 +1,10 @@
-package ru.freedomminecraft.bot.command;
+package ru.freedomminecraft.bot.command.guide;
 
 import java.util.List;
 import java.util.StringJoiner;
+
+import ru.freedomminecraft.bot.command.Command;
+import ru.freedomminecraft.bot.command.CommandGroup;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Link;
 import ru.freedomminecraft.bot.serverinfo.StaffGroup;

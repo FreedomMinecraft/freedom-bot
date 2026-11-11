@@ -1,7 +1,9 @@
-package ru.freedomminecraft.bot.command;
+package ru.freedomminecraft.bot.command.guide;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import ru.freedomminecraft.bot.command.CommandRegistry;
+import ru.freedomminecraft.bot.command.basic.HelpCommand;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Chat;
 
