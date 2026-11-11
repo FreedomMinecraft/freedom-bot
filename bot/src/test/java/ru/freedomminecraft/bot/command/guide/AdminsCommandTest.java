@@ -3,6 +3,7 @@ package ru.freedomminecraft.bot.command.guide;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import ru.freedomminecraft.bot.command.CommandRegistry;
+import ru.freedomminecraft.bot.command.TestContext;
 import ru.freedomminecraft.bot.command.basic.HelpCommand;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Link;
@@ -27,12 +28,12 @@ public class AdminsCommandTest {
 
     @Test
     void showsAdmins(){
-        assertTrue(admins.execute("").contains("pacan1337"));
+        assertTrue(admins.execute(TestContext.of("")).contains("pacan1337"));
     }
 
     @Test
     void endsWithSupportLinks(){
-        String answer = admins.execute("");
+        String answer = admins.execute(TestContext.of(""));
 
         assertTrue(answer.contains("Нужна помощь?"));
         assertTrue(answer.endsWith(Html.link("Бот поддержки", "https://t.me/test_bot")));
@@ -42,7 +43,7 @@ public class AdminsCommandTest {
     void noSupportNoFooter(){
         AdminsCommand withoutSupport = new AdminsCommand(groups, List.of());
 
-        assertFalse(withoutSupport.execute("").contains("Нужна помощь?"));
+        assertFalse(withoutSupport.execute(TestContext.of("")).contains("Нужна помощь?"));
     }
 
     @Test
@@ -51,7 +52,7 @@ public class AdminsCommandTest {
         registry.register(new HelpCommand(registry));
         registry.register(admins);
 
-        String helpAnswer = registry.find("help").get().execute("");
+        String helpAnswer = registry.find("help").get().execute(TestContext.of(""));
 
         assertTrue(helpAnswer.contains("/admins — Администрация и поддержка"));
     }

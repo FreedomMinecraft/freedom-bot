@@ -7,7 +7,7 @@ public interface Command {
     /**Ответ бота в разметке HTML
      * Данные и ввод через Html.escape()
      */
-    String execute(String argument);
+    String execute(CommandContext context);
 
     default CommandGroup group() {
         return CommandGroup.OTHER;

@@ -1,6 +1,7 @@
 package ru.freedomminecraft.bot.command.basic;
 
 import ru.freedomminecraft.bot.command.Command;
+import ru.freedomminecraft.bot.command.CommandContext;
 import ru.freedomminecraft.bot.command.CommandGroup;
 import ru.freedomminecraft.bot.format.Emoji;
 import ru.freedomminecraft.bot.format.Html;
@@ -22,7 +23,7 @@ public class AboutCommand implements Command {
     }
 
     @Override
-    public String execute(String argument){
+    public String execute(CommandContext context){
         return Html.title(Emoji.ROBOT, "FREEDOM BOT") + "\n\n"
             + "Бот Minecraft-сервера FREEDOM.\n\n"
             + Emoji.COMPASS.html() + " • Путеводитель по серверу: кто в администрации, где общаться, чьи стримы смотреть\n"

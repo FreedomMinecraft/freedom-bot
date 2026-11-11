@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import ru.freedomminecraft.bot.command.Command;
+import ru.freedomminecraft.bot.command.CommandContext;
 import ru.freedomminecraft.bot.command.CommandGroup;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Link;
@@ -36,7 +37,7 @@ public abstract class StaffCommand implements Command {
     }
 
     @Override
-    public final String execute(String argument) {
+    public final String execute(CommandContext context) {
         StringBuilder text = new StringBuilder(header()).append("\n\n");
         if (groups.isEmpty()) {
             text.append("Список пока пуст.\n");

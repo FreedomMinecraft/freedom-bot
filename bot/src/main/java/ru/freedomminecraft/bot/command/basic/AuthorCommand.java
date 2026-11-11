@@ -1,6 +1,7 @@
 package ru.freedomminecraft.bot.command.basic;
 
 import ru.freedomminecraft.bot.command.Command;
+import ru.freedomminecraft.bot.command.CommandContext;
 import ru.freedomminecraft.bot.format.Emoji;
 import ru.freedomminecraft.bot.format.Html;
 
@@ -12,7 +13,7 @@ public class AuthorCommand implements Command {
     public String description() { return "Информация об авторах бота";}
 
     @Override
-    public String execute(String argument){
+    public String execute(CommandContext context){
         return Html.title(Emoji.STAR, "АВТОРЫ БОТА") + "\n\n"
             + Html.BULLET + "Рещиков Андрей — @yuknowni\n"
             + Html.BULLET + "Потапов Вадим — @ivyxide";

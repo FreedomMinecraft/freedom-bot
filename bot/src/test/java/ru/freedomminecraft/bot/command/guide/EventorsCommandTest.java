@@ -3,6 +3,7 @@ package ru.freedomminecraft.bot.command.guide;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import ru.freedomminecraft.bot.command.CommandRegistry;
+import ru.freedomminecraft.bot.command.TestContext;
 import ru.freedomminecraft.bot.command.basic.HelpCommand;
 import ru.freedomminecraft.bot.serverinfo.StaffGroup;
 import ru.freedomminecraft.bot.serverinfo.TeamMember;
@@ -21,7 +22,7 @@ public class EventorsCommandTest {
 
     @Test
     void startsWithTitle(){
-        String answer = eventors.execute("");
+        String answer = eventors.execute(TestContext.of(""));
 
         assertTrue(answer.indexOf("ИВЕНТОРЫ FREEDOM") < answer.indexOf("TestMember"));
     }
@@ -32,7 +33,7 @@ public class EventorsCommandTest {
         registry.register(new HelpCommand(registry));
         registry.register(eventors);
 
-        String helpAnswer = registry.find("help").get().execute("");
+        String helpAnswer = registry.find("help").get().execute(TestContext.of(""));
 
         assertTrue(helpAnswer.contains("/eventors — Ивенторы сервера"));
     }

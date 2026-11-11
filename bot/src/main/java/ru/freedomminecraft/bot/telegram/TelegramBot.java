@@ -47,9 +47,10 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
         }
 
         long chatId = update.getMessage().getChatId();
+        long userId = update.getMessage().getFrom().getId();
         String text = update.getMessage().getText();
 
-        Optional<String> reply = dispatcher.dispatch(text);
+        Optional<String> reply = dispatcher.dispatch(chatId, userId, text);
         if (reply.isPresent()) {
             send(chatId, reply.get());
         }

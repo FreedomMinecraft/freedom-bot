@@ -2,6 +2,7 @@ package ru.freedomminecraft.bot.command.basic;
 
 import org.junit.jupiter.api.Test;
 import ru.freedomminecraft.bot.command.CommandRegistry;
+import ru.freedomminecraft.bot.command.TestContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,21 +17,21 @@ public class StartCommandTest {
 
     @Test
     void mentionServerName(){
-        String answer = start.execute("");
+        String answer = start.execute(TestContext.of(""));
 
         assertTrue(answer.contains("FREEDOM"));
     }
 
     @Test
     void pointsToHelp(){
-        String answer = start.execute("");
+        String answer = start.execute(TestContext.of(""));
 
         assertTrue(answer.contains("/help"));
     }
 
     @Test
     void usesPremiumEmoji(){
-        String answer = start.execute("");
+        String answer = start.execute(TestContext.of(""));
 
         assertTrue(answer.contains("<tg-emoji"));
     }
@@ -41,7 +42,7 @@ public class StartCommandTest {
         registry.register(new HelpCommand(registry));
         registry.register(start);
 
-        String helpAnswer = registry.find("help").get().execute("");
+        String helpAnswer = registry.find("help").get().execute(TestContext.of(""));
 
         assertTrue(helpAnswer.contains("/start — Начать работу с ботом"));
     }

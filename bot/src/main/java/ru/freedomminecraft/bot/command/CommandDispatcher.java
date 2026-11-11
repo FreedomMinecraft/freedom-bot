@@ -18,7 +18,7 @@ public class CommandDispatcher {
         this.registry = registry;
     }
 
-    public Optional<String> dispatch(String text) {
+    public Optional<String> dispatch(long chatId, long userId, String text) {
         Optional<ParsedCommand> parsed = parser.parse(text);
         if (parsed.isEmpty()) {
             return Optional.empty();
@@ -33,7 +33,8 @@ public class CommandDispatcher {
 
         log.info("Команда: /{}", parsedCommand.name());
         try {
-            return Optional.of(command.get().execute(parsedCommand.argument()));
+            CommandContext context = new CommandContext(chatId, userId, parsedCommand.argument());
+            return Optional.of(command.get().execute(context));
         } catch (RuntimeException e){
             log.error("Ошибка при выполнении команды /{}", parsedCommand.name(), e);
             return Optional.of(Emoji.TOOLS.html() + " Не получилось выполнить /" + Html.escape(parsedCommand.name()) + ". Попробуйте чуть позже.");
