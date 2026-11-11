@@ -1,6 +1,7 @@
 package ru.freedomminecraft.bot.command.basic;
 
 import org.junit.jupiter.api.Test;
+import ru.freedomminecraft.bot.command.TestContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,21 +16,21 @@ public class AboutCommandTest {
 
     @Test
     void mentionServerName(){
-        String answer = about.execute("");
+        String answer = about.execute(TestContext.of(""));
 
         assertTrue(answer.contains("FREEDOM"));
     }
 
     @Test
     void pointsToHelp(){
-        String answer = about.execute("");
+        String answer = about.execute(TestContext.of(""));
 
         assertTrue(answer.contains("/help"));
     }
 
     @Test
     void serverAddressCanBeCopied(){
-        String answer = about.execute("");
+        String answer = about.execute(TestContext.of(""));
 
         assertTrue(answer.contains("<code>freedom.servop.ru</code>"));
     }

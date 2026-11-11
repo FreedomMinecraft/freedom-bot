@@ -1,6 +1,7 @@
 package ru.freedomminecraft.bot.command.basic;
 
 import org.junit.jupiter.api.Test;
+import ru.freedomminecraft.bot.command.TestContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,11 +16,11 @@ public class PingCommandTest {
 
     @Test
     void answersPong(){
-        assertEquals("pong", ping.execute(""));
+        assertEquals("pong", ping.execute(TestContext.of("")));
     }
 
     @Test
     void ignoresArgument() {
-        assertEquals("pong", ping.execute("123"));
+        assertEquals("pong", ping.execute(TestContext.of("123")));
     }
 }

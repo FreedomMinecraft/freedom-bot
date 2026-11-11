@@ -1,9 +1,6 @@
 package ru.freedomminecraft.bot.command.basic;
 
-import ru.freedomminecraft.bot.command.Command;
-import ru.freedomminecraft.bot.command.CommandGroup;
-import ru.freedomminecraft.bot.command.CommandParser;
-import ru.freedomminecraft.bot.command.CommandRegistry;
+import ru.freedomminecraft.bot.command.*;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.format.Emoji;
 
@@ -32,7 +29,8 @@ public class HelpCommand implements Command {
     }
 
     @Override
-    public String execute(String argument){
+    public String execute(CommandContext context){
+        String argument = context.argument();
         if (argument == null || argument.isBlank()){
             StringBuilder text = new StringBuilder(Html.title(Emoji.BOOK, "КОМАНДЫ БОТА")).append("\n");
             for (CommandGroup group : CommandGroup.values()) {

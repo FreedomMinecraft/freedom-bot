@@ -1,6 +1,7 @@
 package ru.freedomminecraft.bot.command.basic;
 
 import ru.freedomminecraft.bot.command.Command;
+import ru.freedomminecraft.bot.command.CommandContext;
 import ru.freedomminecraft.bot.command.CommandGroup;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.format.Emoji;
@@ -22,7 +23,7 @@ public class StartCommand implements Command {
     }
 
     @Override
-    public String execute(String argument){
+    public String execute(CommandContext context){
         return Html.title(Emoji.WAVE, "ДОБРО ПОЖАЛОВАТЬ НА FREEDOM!") + "\n\n"
             + "Я бот сервера — со мной вы не пропустите главное:\n\n"
             + Emoji.COMPASS.html() + " • Путеводитель: администрация, ивенторы, медиа и чаты\n"

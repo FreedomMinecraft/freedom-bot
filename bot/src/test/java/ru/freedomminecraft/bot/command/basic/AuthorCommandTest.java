@@ -1,6 +1,7 @@
 package ru.freedomminecraft.bot.command.basic;
 
 import org.junit.jupiter.api.Test;
+import ru.freedomminecraft.bot.command.TestContext;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +17,7 @@ public class AuthorCommandTest {
 
     @Test
     void mentionBothAuthors(){
-        String answer = author.execute("");
+        String answer = author.execute(TestContext.of(""));
 
         assertTrue(answer.contains("@yuknowni"));
         assertTrue(answer.contains("@ivyxide"));

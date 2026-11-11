@@ -1,6 +1,7 @@
 package ru.freedomminecraft.bot.command.basic;
 
 import ru.freedomminecraft.bot.command.Command;
+import ru.freedomminecraft.bot.command.CommandContext;
 
 public class PingCommand implements Command {
     @Override
@@ -14,7 +15,7 @@ public class PingCommand implements Command {
     }
 
     @Override
-    public String execute(String argument) {
+    public String execute(CommandContext context) {
         return "pong";
     }
 }

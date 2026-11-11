@@ -3,6 +3,7 @@ package ru.freedomminecraft.bot.command.guide;
 import java.util.List;
 
 import ru.freedomminecraft.bot.command.Command;
+import ru.freedomminecraft.bot.command.CommandContext;
 import ru.freedomminecraft.bot.command.CommandGroup;
 import ru.freedomminecraft.bot.format.Emoji;
 import ru.freedomminecraft.bot.format.Html;
@@ -31,7 +32,7 @@ public class ChatsCommand implements Command {
     }
 
     @Override
-    public String execute(String argument){
+    public String execute(CommandContext context){
         StringBuilder text = new StringBuilder(Html.title(Emoji.SPEECH, "ЧАТЫ И КАНАЛЫ FREEDOM")).append("\n\n");
         if (chats.isEmpty()){
             return text.append("Список пока пуст.").toString();
