@@ -16,10 +16,10 @@ public abstract class SubscriptionRepositoryContractTest {
 
     private SubscriptionRepository repository;
 
-    protected abstract SubscriptionRepository createRepository();
+    protected abstract SubscriptionRepository createRepository() throws Exception;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         repository = createRepository();
     }
 
