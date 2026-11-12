@@ -1,8 +1,9 @@
 package ru.freedomminecraft.bot.config;
 
 import java.util.Map;
+import java.util.Optional;
 
-public record BotConfig(String token) {
+public record BotConfig(String token, Optional<DatabaseConfig> database) {
 
     public static final String TOKEN_VARIABLE = "BOT_TOKEN";
 
@@ -11,11 +12,11 @@ public record BotConfig(String token) {
         if (token == null || token.isBlank()) {
             throw new IllegalStateException("Не задан токен бота: установите переменную окружения " + TOKEN_VARIABLE);
         }
-        return new BotConfig(token.strip());
+        return new BotConfig(token.strip(), DatabaseConfig.fromEnvironment(environment));
     }
 
     @Override
     public String toString() {
-        return "BotConfig[token=***]";
+        return "BotConfig[token=***, database=" + database + "]";
     }
 }
