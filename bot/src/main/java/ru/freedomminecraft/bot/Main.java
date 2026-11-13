@@ -20,8 +20,9 @@ import ru.freedomminecraft.bot.command.guide.EventorsCommand;
 import ru.freedomminecraft.bot.command.guide.MediaCommand;
 import ru.freedomminecraft.bot.config.BotConfig;
 import ru.freedomminecraft.bot.config.DatabaseConfig;
-import ru.freedomminecraft.bot.serverinfo.JsonServerInfoSource;
 import ru.freedomminecraft.bot.serverinfo.ServerInfo;
+import ru.freedomminecraft.bot.serverinfo.ServerInfoSource;
+import ru.freedomminecraft.bot.serverinfo.ServerInfoSources;
 import ru.freedomminecraft.bot.subscription.InMemorySubscriptionRepository;
 import ru.freedomminecraft.bot.subscription.JdbcSubscriptionsRepository;
 import ru.freedomminecraft.bot.subscription.SubscriptionRepository;
@@ -34,7 +35,9 @@ public class Main {
         BotConfig config = BotConfig.fromEnvironment(System.getenv());
         SubscriptionRepository subscriptions = openSubscriptions(config);
 
-        ServerInfo info = new JsonServerInfoSource(JsonServerInfoSource.DEFAULT_RESOURCE).load();
+        ServerInfoSource source = ServerInfoSources.fromEnvironment(System.getenv());
+        log.info("Данные о сервере: {}", source);
+        ServerInfo info = source.load();
 
         CommandRegistry registry = new CommandRegistry();
         registry.register(new StartCommand());
