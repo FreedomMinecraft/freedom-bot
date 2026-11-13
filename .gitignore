@@ -29,6 +29,8 @@ application-local.properties
 .env.*
 secrets.*
 *.log
+# Локальные базы SQLite
+*.db
 logs/
 hs_err_pid*
 replay_pid*
