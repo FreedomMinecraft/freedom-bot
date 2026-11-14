@@ -26,4 +26,9 @@ public class JsonServerInfoSource implements ServerInfoSource {
             throw new IllegalStateException("Не удалось прочитать данные о сервере из " + resource, e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "ресурс " + resource;
+    }
 }
