@@ -14,6 +14,7 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 
 import ru.freedomminecraft.bot.command.CommandDispatcher;
+import ru.freedomminecraft.bot.reply.Reply;
 
 public class TelegramBot extends DefaultLongPollingUpdateConsumer{
     private static final Logger log = LoggerFactory.getLogger(TelegramBot.class);
@@ -50,9 +51,9 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
         long userId = update.getMessage().getFrom().getId();
         String text = update.getMessage().getText();
 
-        Optional<String> reply = dispatcher.dispatch(chatId, userId, text);
+        Optional<Reply> reply = dispatcher.dispatch(chatId, userId, text);
         if (reply.isPresent()) {
-            send(chatId, reply.get());
+            send(chatId, reply.get().text());
         }
     }
 }

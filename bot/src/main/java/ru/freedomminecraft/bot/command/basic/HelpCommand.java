@@ -3,6 +3,7 @@ package ru.freedomminecraft.bot.command.basic;
 import ru.freedomminecraft.bot.command.*;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.format.Emoji;
+import ru.freedomminecraft.bot.reply.Reply;
 
 import java.util.Optional;
 
@@ -29,7 +30,7 @@ public class HelpCommand implements Command {
     }
 
     @Override
-    public String execute(CommandContext context){
+    public Reply execute(CommandContext context){
         String argument = context.argument();
         if (argument == null || argument.isBlank()){
             StringBuilder text = new StringBuilder(Html.title(Emoji.BOOK, "КОМАНДЫ БОТА")).append("\n");
@@ -48,14 +49,14 @@ public class HelpCommand implements Command {
                     text.append("\n").append(lines);
                 }
             }
-            return text.toString();
+            return Reply.of(text.toString());
         }
         String commandName = CommandParser.normalizeName(argument);
         Optional<Command> found = registry.find(commandName);
         if (found.isPresent()){
             Command command = found.get();
-            return "/" + command.name() + " — " + Html.escape(command.description());
+            return Reply.of("/" + command.name() + " — " + Html.escape(command.description()));
         }
-        return Emoji.THINKING.html() + " Нет команды «" + Html.escape(commandName) + "». Все команды — /help";
+        return Reply.of(Emoji.THINKING.html() + " Нет команды «" + Html.escape(commandName) + "». Все команды — /help");
     }
 }

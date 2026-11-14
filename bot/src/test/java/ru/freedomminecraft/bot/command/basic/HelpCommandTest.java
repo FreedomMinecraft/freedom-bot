@@ -31,7 +31,7 @@ public class HelpCommandTest {
     void newCommandAppearsInHelpAutomatically(){
         registry.register(new PingCommand());
 
-        String answer = help.execute(TestContext.of(""));
+        String answer = help.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("/ping"));
         assertTrue(answer.contains("Проверить, что бот на связи"));
@@ -41,14 +41,14 @@ public class HelpCommandTest {
     void nullArgumentWorksLikeEmpty(){
         registry.register(new PingCommand());
 
-        assertEquals(help.execute(TestContext.of("")), help.execute(TestContext.of(null)));
+        assertEquals(help.execute(TestContext.of("")).text(), help.execute(TestContext.of(null)).text());
     }
 
     @Test
     void showsHelpForOneCommand(){
         registry.register(new PingCommand());
 
-        String answer = help.execute(TestContext.of("ping"));
+        String answer = help.execute(TestContext.of("ping")).text();
 
         assertEquals("/ping — Проверить, что бот на связи", answer);
     }
@@ -57,12 +57,12 @@ public class HelpCommandTest {
     void ignoresSpacesAroundCommandName(){
         registry.register(new PingCommand());
 
-        assertEquals(help.execute(TestContext.of("ping")), help.execute(TestContext.of(" ping ")));
+        assertEquals(help.execute(TestContext.of("ping")).text(), help.execute(TestContext.of(" ping ")).text());
     }
 
     @Test
     void reportsUnknownCommand(){
-        String answer = help.execute(TestContext.of("fly"));
+        String answer = help.execute(TestContext.of("fly")).text();
 
         assertTrue(answer.contains("Нет команды «fly»"));
     }
@@ -71,19 +71,19 @@ public class HelpCommandTest {
     void acceptsCommandNameWithSlash() {
         registry.register(new PingCommand());
 
-        assertEquals(help.execute(TestContext.of("ping")), help.execute(TestContext.of("/ping")));
+        assertEquals(help.execute(TestContext.of("ping")).text(), help.execute(TestContext.of("/ping")).text());
     }
 
     @Test
     void ignoresCaseOfCommandName() {
         registry.register(new PingCommand());
 
-        assertEquals(help.execute(TestContext.of("ping")), help.execute(TestContext.of("PING")));
+        assertEquals(help.execute(TestContext.of("ping")).text(), help.execute(TestContext.of("PING")).text());
     }
 
     @Test
     void escapesDescriptionsInList() {
-        String answer = help.execute(TestContext.of(""));
+        String answer = help.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("help &lt;команда&gt;"));
     }
@@ -92,7 +92,7 @@ public class HelpCommandTest {
     void separatesGroupsWithEmptyLine() {
         registry.register(new PingCommand());
 
-        String answer = help.execute(TestContext.of(""));
+        String answer = help.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("\n\n/ping"));
     }
@@ -102,14 +102,14 @@ public class HelpCommandTest {
         registry.register(new PingCommand());
         registry.register(new StartCommand());
 
-        String answer = help.execute(TestContext.of(""));
+        String answer = help.execute(TestContext.of("")).text();
 
         assertTrue(answer.indexOf("/start") < answer.indexOf("/ping"));
     }
 
     @Test
     void emptyGroupsAddNoExtraLines() {
-        String answer = help.execute(TestContext.of(""));
+        String answer = help.execute(TestContext.of("")).text();
 
         assertFalse(answer.contains("\n\n\n"));
     }
@@ -121,7 +121,7 @@ public class HelpCommandTest {
 
     @Test
     void escapesUnknownCommandName() {
-        String answer = help.execute(TestContext.of("<b>"));
+        String answer = help.execute(TestContext.of("<b>")).text();
 
         assertTrue(answer.contains("Нет команды «&lt;b&gt;»"));
     }

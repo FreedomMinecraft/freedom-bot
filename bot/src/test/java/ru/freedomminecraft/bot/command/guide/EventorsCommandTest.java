@@ -22,7 +22,7 @@ public class EventorsCommandTest {
 
     @Test
     void startsWithTitle(){
-        String answer = eventors.execute(TestContext.of(""));
+        String answer = eventors.execute(TestContext.of("")).text();
 
         assertTrue(answer.indexOf("ИВЕНТОРЫ FREEDOM") < answer.indexOf("TestMember"));
     }
@@ -33,7 +33,7 @@ public class EventorsCommandTest {
         registry.register(new HelpCommand(registry));
         registry.register(eventors);
 
-        String helpAnswer = registry.find("help").get().execute(TestContext.of(""));
+        String helpAnswer = registry.find("help").get().execute(TestContext.of("")).text();
 
         assertTrue(helpAnswer.contains("/eventors — Ивенторы сервера"));
     }

@@ -5,6 +5,7 @@ import ru.freedomminecraft.bot.command.CommandContext;
 import ru.freedomminecraft.bot.command.CommandGroup;
 import ru.freedomminecraft.bot.format.Emoji;
 import ru.freedomminecraft.bot.format.Html;
+import ru.freedomminecraft.bot.reply.Reply;
 
 public class AboutCommand implements Command {
     @Override
@@ -23,8 +24,8 @@ public class AboutCommand implements Command {
     }
 
     @Override
-    public String execute(CommandContext context){
-        return Html.title(Emoji.ROBOT, "FREEDOM BOT") + "\n\n"
+    public Reply execute(CommandContext context){
+        return Reply.of(Html.title(Emoji.ROBOT, "FREEDOM BOT") + "\n\n"
             + "Бот Minecraft-сервера FREEDOM.\n\n"
             + Emoji.COMPASS.html() + " • Путеводитель по серверу: кто в администрации, где общаться, чьи стримы смотреть\n"
             + Emoji.BELL.html() + " • Адресные уведомления — только то, на что подписались (скоро)\n"
@@ -32,6 +33,6 @@ public class AboutCommand implements Command {
             + Emoji.FLAG.html() + " • IP: " + Html.code("freedom.servop.ru") + "\n"
             + Emoji.GAMEPAD.html() + " • Версия: 1.21.10\n"
             + Emoji.GLOBE.html() + " • Сайт: " + Html.link("freedom-minecraft.ru", "https://freedom-minecraft.ru/") + "\n\n"
-            + Emoji.BOOK.html() + " Все команды — /help";
+            + Emoji.BOOK.html() + " Все команды — /help");
     }
 }

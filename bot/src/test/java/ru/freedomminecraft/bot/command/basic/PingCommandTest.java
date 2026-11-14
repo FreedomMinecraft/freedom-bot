@@ -16,11 +16,11 @@ public class PingCommandTest {
 
     @Test
     void answersPong(){
-        assertEquals("pong", ping.execute(TestContext.of("")));
+        assertEquals("pong", ping.execute(TestContext.of("")).text());
     }
 
     @Test
     void ignoresArgument() {
-        assertEquals("pong", ping.execute(TestContext.of("123")));
+        assertEquals("pong", ping.execute(TestContext.of("123")).text());
     }
 }

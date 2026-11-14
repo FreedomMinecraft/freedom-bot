@@ -47,7 +47,7 @@ public class StaffCommandTest {
 
     @Test
     void showsGroupTitlesInBold(){
-        String answer = staff.execute(TestContext.of(""));
+        String answer = staff.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("<b>Администратор</b>"));
         assertTrue(answer.contains("<b>Модераторы</b>"));
@@ -55,7 +55,7 @@ public class StaffCommandTest {
 
     @Test
     void listsEveryMember(){
-        String answer = staff.execute(TestContext.of(""));
+        String answer = staff.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("pacan1337"));
         assertTrue(answer.contains("pacetko228"));
@@ -64,7 +64,7 @@ public class StaffCommandTest {
 
     @Test
     void membersGoUnderTheirGroup(){
-        String answer = staff.execute(TestContext.of(""));
+        String answer = staff.execute(TestContext.of("")).text();
 
         assertTrue(answer.indexOf("Модераторы") < answer.indexOf("pacetko228"));
         assertTrue(answer.indexOf("pacan1337") < answer.indexOf("Модераторы"));
@@ -72,7 +72,7 @@ public class StaffCommandTest {
 
     @Test
     void headerFirstFooterLast(){
-        String answer = staff.execute(TestContext.of(""));
+        String answer = staff.execute(TestContext.of("")).text();
 
         assertTrue(answer.startsWith("ЗАГОЛОВОК"));
         assertTrue(answer.endsWith("ПОДВАЛ"));
@@ -86,7 +86,7 @@ public class StaffCommandTest {
                     new Link("Twitch", "https://www.twitch.tv/test"),
                     new Link("Telegram", "https://t.me/test")))))));
 
-        String answer = media.execute(TestContext.of(""));
+        String answer = media.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("apollodance — "
             + Html.link("Twitch", "https://www.twitch.tv/test") + " · "
@@ -95,7 +95,7 @@ public class StaffCommandTest {
 
     @Test
     void memberWithoutLinksHasNoDash(){
-        String answer = staff.execute(TestContext.of(""));
+        String answer = staff.execute(TestContext.of("")).text();
 
         assertFalse(answer.contains("pacan1337 —"));
     }
@@ -106,7 +106,7 @@ public class StaffCommandTest {
             List.of(new StaffGroup("Модераторы & хелперы", List.of(
                 new TeamMember("<Ник>", List.of())))));
 
-        String answer = escaped.execute(TestContext.of(""));
+        String answer = escaped.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("Модераторы &amp; хелперы"));
         assertTrue(answer.contains("&lt;Ник&gt;"));
@@ -116,6 +116,6 @@ public class StaffCommandTest {
     void emptyListSaysSo(){
         StaffCommand empty = new TestStaffCommand(List.of());
 
-        assertTrue(empty.execute(TestContext.of("")).contains("пуст"));
+        assertTrue(empty.execute(TestContext.of("")).text().contains("пуст"));
     }
 }

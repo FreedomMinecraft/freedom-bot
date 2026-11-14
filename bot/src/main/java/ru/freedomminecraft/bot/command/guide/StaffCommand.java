@@ -10,6 +10,7 @@ import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Link;
 import ru.freedomminecraft.bot.serverinfo.StaffGroup;
 import ru.freedomminecraft.bot.serverinfo.TeamMember;
+import ru.freedomminecraft.bot.reply.Reply;
 
 /**
  * Общая основа команд со списком людей по группам: /admins, /eventors, /media.
@@ -37,7 +38,7 @@ public abstract class StaffCommand implements Command {
     }
 
     @Override
-    public final String execute(CommandContext context) {
+    public final Reply execute(CommandContext context) {
         StringBuilder text = new StringBuilder(header()).append("\n\n");
         if (groups.isEmpty()) {
             text.append("Список пока пуст.\n");
@@ -54,7 +55,7 @@ public abstract class StaffCommand implements Command {
             text.append("\n");
         }
         text.append(footer());
-        return text.toString().strip();
+        return Reply.of(text.toString().strip());
     }
 
     private static String links(List<Link> links) {

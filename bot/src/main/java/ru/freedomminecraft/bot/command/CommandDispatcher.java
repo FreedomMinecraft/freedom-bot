@@ -2,6 +2,7 @@ package ru.freedomminecraft.bot.command;
 
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.format.Emoji;
+import ru.freedomminecraft.bot.reply.Reply;
 
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -18,7 +19,7 @@ public class CommandDispatcher {
         this.registry = registry;
     }
 
-    public Optional<String> dispatch(long chatId, long userId, String text) {
+    public Optional<Reply> dispatch(long chatId, long userId, String text) {
         Optional<ParsedCommand> parsed = parser.parse(text);
         if (parsed.isEmpty()) {
             return Optional.empty();
@@ -28,7 +29,7 @@ public class CommandDispatcher {
         Optional<Command> command = registry.find(parsedCommand.name());
         if (command.isEmpty()) {
             log.info("Неизвестная команда: /{}", parsedCommand.name());
-            return Optional.of(Emoji.THINKING.html() + " Не знаю команду /" + Html.escape(parsedCommand.name()) + ". Все команды — /help");
+            return Optional.of(Reply.of(Emoji.THINKING.html() + " Не знаю команду /" + Html.escape(parsedCommand.name()) + ". Все команды — /help"));
         }
 
         log.info("Команда: /{}", parsedCommand.name());
@@ -37,7 +38,7 @@ public class CommandDispatcher {
             return Optional.of(command.get().execute(context));
         } catch (RuntimeException e){
             log.error("Ошибка при выполнении команды /{}", parsedCommand.name(), e);
-            return Optional.of(Emoji.TOOLS.html() + " Не получилось выполнить /" + Html.escape(parsedCommand.name()) + ". Попробуйте чуть позже.");
+            return Optional.of(Reply.of(Emoji.TOOLS.html() + " Не получилось выполнить /" + Html.escape(parsedCommand.name()) + ". Попробуйте чуть позже."));
         }
     }
 }

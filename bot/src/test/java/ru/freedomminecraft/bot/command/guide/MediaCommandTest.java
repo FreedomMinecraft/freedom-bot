@@ -22,7 +22,7 @@ public class MediaCommandTest {
 
     @Test
     void startsWithTitle(){
-        String answer = media.execute(TestContext.of(""));
+        String answer = media.execute(TestContext.of("")).text();
 
         assertTrue(answer.indexOf("МЕДИА FREEDOM") < answer.indexOf("TestMember"));
     }
@@ -33,7 +33,7 @@ public class MediaCommandTest {
         registry.register(new HelpCommand(registry));
         registry.register(media);
 
-        String helpAnswer = registry.find("help").get().execute(TestContext.of(""));
+        String helpAnswer = registry.find("help").get().execute(TestContext.of("")).text();
 
         assertTrue(helpAnswer.contains("/media — Стримеры и блогеры сервера"));
     }
