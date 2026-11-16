@@ -28,12 +28,12 @@ public class AdminsCommandTest {
 
     @Test
     void showsAdmins(){
-        assertTrue(admins.execute(TestContext.of("")).contains("pacan1337"));
+        assertTrue(admins.execute(TestContext.of("")).text().contains("pacan1337"));
     }
 
     @Test
     void endsWithSupportLinks(){
-        String answer = admins.execute(TestContext.of(""));
+        String answer = admins.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("Нужна помощь?"));
         assertTrue(answer.endsWith(Html.link("Бот поддержки", "https://t.me/test_bot")));
@@ -43,7 +43,7 @@ public class AdminsCommandTest {
     void noSupportNoFooter(){
         AdminsCommand withoutSupport = new AdminsCommand(groups, List.of());
 
-        assertFalse(withoutSupport.execute(TestContext.of("")).contains("Нужна помощь?"));
+        assertFalse(withoutSupport.execute(TestContext.of("")).text().contains("Нужна помощь?"));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class AdminsCommandTest {
         registry.register(new HelpCommand(registry));
         registry.register(admins);
 
-        String helpAnswer = registry.find("help").get().execute(TestContext.of(""));
+        String helpAnswer = registry.find("help").get().execute(TestContext.of("")).text();
 
         assertTrue(helpAnswer.contains("/admins — Администрация и поддержка"));
     }

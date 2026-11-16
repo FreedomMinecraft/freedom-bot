@@ -16,21 +16,21 @@ public class AboutCommandTest {
 
     @Test
     void mentionServerName(){
-        String answer = about.execute(TestContext.of(""));
+        String answer = about.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("FREEDOM"));
     }
 
     @Test
     void pointsToHelp(){
-        String answer = about.execute(TestContext.of(""));
+        String answer = about.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("/help"));
     }
 
     @Test
     void serverAddressCanBeCopied(){
-        String answer = about.execute(TestContext.of(""));
+        String answer = about.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("<code>freedom.servop.ru</code>"));
     }

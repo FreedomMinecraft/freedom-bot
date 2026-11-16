@@ -17,7 +17,7 @@ public class AuthorCommandTest {
 
     @Test
     void mentionBothAuthors(){
-        String answer = author.execute(TestContext.of(""));
+        String answer = author.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("@yuknowni"));
         assertTrue(answer.contains("@ivyxide"));

@@ -8,6 +8,7 @@ import ru.freedomminecraft.bot.command.CommandGroup;
 import ru.freedomminecraft.bot.format.Emoji;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.serverinfo.Chat;
+import ru.freedomminecraft.bot.reply.Reply;
 
 public class ChatsCommand implements Command {
     private final List<Chat> chats;
@@ -32,10 +33,10 @@ public class ChatsCommand implements Command {
     }
 
     @Override
-    public String execute(CommandContext context){
+    public Reply execute(CommandContext context){
         StringBuilder text = new StringBuilder(Html.title(Emoji.SPEECH, "ЧАТЫ И КАНАЛЫ FREEDOM")).append("\n\n");
         if (chats.isEmpty()){
-            return text.append("Список пока пуст.").toString();
+            return Reply.of(text.append("Список пока пуст.").toString());
         }
         for (Chat chat : chats){
             text.append(Html.BULLET)
@@ -44,6 +45,6 @@ public class ChatsCommand implements Command {
                 .append(Html.escape(chat.description()))
                 .append("\n");
         }
-        return text.toString().strip();
+        return Reply.of(text.toString().strip());
     }
 }

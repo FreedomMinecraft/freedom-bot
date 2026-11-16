@@ -23,14 +23,14 @@ public class ChatsCommandTest {
 
     @Test
     void showsNameAndDescription(){
-        String answer = chats.execute(TestContext.of(""));
+        String answer = chats.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains(Html.link("Общий чат", "https://t.me/example_chat") + " — Общение игроков"));
     }
 
     @Test
     void showsLinkOfEveryChat(){
-        String answer = chats.execute(TestContext.of(""));
+        String answer = chats.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("https://t.me/example_chat"));
         assertTrue(answer.contains("https://t.me/example_trade"));
@@ -41,7 +41,7 @@ public class ChatsCommandTest {
         ChatsCommand withAmpersand = new ChatsCommand(List.of(
             new Chat("Чат", "Общение", "https://example.com/?a=1&b=2")));
 
-        String answer = withAmpersand.execute(TestContext.of(""));
+        String answer = withAmpersand.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("https://example.com/?a=1&amp;b=2"));
     }
@@ -50,7 +50,7 @@ public class ChatsCommandTest {
     void emptyListSaysSo(){
         ChatsCommand empty = new ChatsCommand(List.of());
 
-        String answer = empty.execute(TestContext.of(""));
+        String answer = empty.execute(TestContext.of("")).text();
 
         assertTrue(answer.contains("пуст"));
     }
@@ -61,7 +61,7 @@ public class ChatsCommandTest {
         registry.register(new HelpCommand(registry));
         registry.register(chats);
 
-        String helpAnswer = registry.find("help").get().execute(TestContext.of(""));
+        String helpAnswer = registry.find("help").get().execute(TestContext.of("")).text();
 
         assertTrue(helpAnswer.contains("/chats — Чаты и каналы сервера"));
     }

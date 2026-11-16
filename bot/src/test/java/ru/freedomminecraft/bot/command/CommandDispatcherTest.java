@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.freedomminecraft.bot.command.basic.PingCommand;
+import ru.freedomminecraft.bot.reply.Reply;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,8 +26,8 @@ public class CommandDispatcherTest {
         }
 
         @Override
-        public String execute(CommandContext context) {
-            return context.argument();
+        public Reply execute(CommandContext context) {
+            return Reply.of(context.argument());
         }
     }
 
@@ -42,7 +43,7 @@ public class CommandDispatcherTest {
         }
 
         @Override
-        public String execute(CommandContext context){
+        public Reply execute(CommandContext context){
             throw new IllegalStateException("команда сломалась");
         }
     }
@@ -59,8 +60,8 @@ public class CommandDispatcherTest {
         }
 
         @Override
-        public String execute(CommandContext context) {
-            return context.chatId() + " " + context.userId();
+        public Reply execute(CommandContext context) {
+            return Reply.of(context.chatId() + " " + context.userId());
         }
     }
 
@@ -76,22 +77,22 @@ public class CommandDispatcherTest {
 
     @Test
     void executesKnownCommand(){
-        assertEquals(Optional.of("pong"), dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/ping"));
+        assertEquals(Optional.of(Reply.of("pong")), dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/ping"));
     }
 
     @Test
     void passedArgumentToCommand() {
-        assertEquals(Optional.of("всем привет"), dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/echo всем привет"));
+        assertEquals(Optional.of(Reply.of("всем привет")), dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/echo всем привет"));
     }
 
     @Test
     void passesChatAndUserToCommand() {
-        assertEquals(Optional.of("42 7"), dispatcher.dispatch(42, 7, "/whoami"));
+        assertEquals(Optional.of(Reply.of("42 7")), dispatcher.dispatch(42, 7, "/whoami"));
     }
 
     @Test
     void repliesToUnknownCommand() {
-        String answer = dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/ogogo").orElseThrow();
+        String answer = dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/ogogo").orElseThrow().text();
 
         assertTrue(answer.contains("Не знаю команду /ogogo"));
         assertTrue(answer.contains("/help"));
@@ -99,7 +100,7 @@ public class CommandDispatcherTest {
 
     @Test
     void escapesUnknownCommandName() {
-        String answer = dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/<b>").orElseThrow();
+        String answer = dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/<b>").orElseThrow().text();
 
         assertTrue(answer.contains("Не знаю команду /&lt;b&gt;"));
     }
@@ -116,7 +117,7 @@ public class CommandDispatcherTest {
 
     @Test
     void repliesWithErrorWhenCommandFails() {
-        String answer = dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/broken").orElseThrow();
+        String answer = dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/broken").orElseThrow().text();
 
         assertTrue(answer.contains("Не получилось выполнить /broken"));
     }
@@ -124,6 +125,6 @@ public class CommandDispatcherTest {
     @Test
     void worksAfterBrokenCommand(){
         dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/broken");
-        assertEquals(Optional.of("pong"), dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/ping"));
+        assertEquals(Optional.of(Reply.of("pong")), dispatcher.dispatch(TestContext.CHAT_ID, TestContext.USER_ID, "/ping"));
     }
 }

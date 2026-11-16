@@ -5,6 +5,7 @@ import ru.freedomminecraft.bot.command.CommandContext;
 import ru.freedomminecraft.bot.command.CommandGroup;
 import ru.freedomminecraft.bot.format.Html;
 import ru.freedomminecraft.bot.format.Emoji;
+import ru.freedomminecraft.bot.reply.Reply;
 
 public class StartCommand implements Command {
     @Override
@@ -23,12 +24,12 @@ public class StartCommand implements Command {
     }
 
     @Override
-    public String execute(CommandContext context){
-        return Html.title(Emoji.WAVE, "ДОБРО ПОЖАЛОВАТЬ НА FREEDOM!") + "\n\n"
+    public Reply execute(CommandContext context){
+        return Reply.of(Html.title(Emoji.WAVE, "ДОБРО ПОЖАЛОВАТЬ НА FREEDOM!") + "\n\n"
             + "Я бот сервера — со мной вы не пропустите главное:\n\n"
             + Emoji.COMPASS.html() + " • Путеводитель: администрация, ивенторы, медиа и чаты\n"
             + Emoji.BELL.html() + " • Новости по подписке: ивенты, розыгрыши, важное (скоро)\n"
             + Emoji.SHIELD.html() + " • Защита игрового аккаунта через Telegram (скоро)\n\n"
-            + Emoji.BOOK.html() + " Все команды — /help";
+            + Emoji.BOOK.html() + " Все команды — /help");
     }
 }

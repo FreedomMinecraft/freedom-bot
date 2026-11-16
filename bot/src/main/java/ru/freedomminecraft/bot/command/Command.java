@@ -1,5 +1,7 @@
 package ru.freedomminecraft.bot.command;
 
+import ru.freedomminecraft.bot.reply.Reply;
+
 public interface Command {
     String name();
     /**Обычный текст, без разметки*/
@@ -7,7 +9,7 @@ public interface Command {
     /**Ответ бота в разметке HTML
      * Данные и ввод через Html.escape()
      */
-    String execute(CommandContext context);
+    Reply execute(CommandContext context);
 
     default CommandGroup group() {
         return CommandGroup.OTHER;
