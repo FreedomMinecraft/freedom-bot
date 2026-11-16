@@ -6,12 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.telegram.telegrambots.longpolling.util.DefaultLongPollingUpdateConsumer;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.LinkPreviewOptions;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
-import org.telegram.telegrambots.meta.api.methods.ParseMode;
 
 import ru.freedomminecraft.bot.command.CommandDispatcher;
 import ru.freedomminecraft.bot.reply.Reply;
@@ -22,15 +19,9 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
     private final TelegramClient client;
     private final CommandDispatcher dispatcher;
 
-    private void send(long chatId, String text) {
-        SendMessage message = SendMessage.builder()
-            .chatId(chatId)
-            .text(text)
-            .parseMode(ParseMode.HTML)
-            .linkPreviewOptions(LinkPreviewOptions.builder().isDisabled(true).build())
-            .build();
+    private void send(long chatId, Reply reply) {
         try {
-            client.execute(message);
+            client.execute(ReplyConverter.toSendMessage(chatId, reply));
         } catch (TelegramApiException e) {
             log.error("Не удалось отправить ответ в чат {}", chatId, e);
         }
@@ -53,7 +44,7 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
 
         Optional<Reply> reply = dispatcher.dispatch(chatId, userId, text);
         if (reply.isPresent()) {
-            send(chatId, reply.get().text());
+            send(chatId, reply.get());
         }
     }
 }
