@@ -96,4 +96,28 @@ public class BotConfigTest {
 
         assertFalse(config.toString().contains("secret"));
     }
+
+    @Test
+    void readsNewsChannelId(){
+        BotConfig config = BotConfig.fromEnvironment(Map.of(
+            "BOT_TOKEN", "123:abc",
+            "NEWS_CHANNEL_ID", " -1337228 "));
+
+        long channelId = config.newsChannelId().orElseThrow();
+        assertEquals(-1337228, channelId);
+    }
+
+    @Test
+    void newsChannelIsEmptyWhenVariableIsMissing(){
+        BotConfig config = BotConfig.fromEnvironment(Map.of("BOT_TOKEN", "123:abc"));
+
+        assertTrue(config.newsChannelId().isEmpty());
+    }
+
+    @Test
+    void fallsWhenNewsChannelIdIsNotNumber(){
+        assertThrows(IllegalStateException.class, () -> BotConfig.fromEnvironment(Map.of(
+            "BOT_TOKEN", "123:abc",
+            "NEWS_CHANNEL_ID", "@freedom_news")));
+    }
 }
