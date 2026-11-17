@@ -41,7 +41,7 @@ public class NewsCategoryTest {
     }
 
     @Test
-    void similanHashtagIsNotCategory(){
+    void similarHashtagIsNotCategory(){
         assertTrue(NewsCategory.fromText("Итоги #ивенты прошлой недели").isEmpty());
     }
 
