@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
@@ -27,6 +28,8 @@ import ru.freedomminecraft.bot.subscription.InMemorySubscriptionRepository;
 import ru.freedomminecraft.bot.subscription.JdbcSubscriptionsRepository;
 import ru.freedomminecraft.bot.subscription.SubscriptionRepository;
 import ru.freedomminecraft.bot.telegram.TelegramBot;
+import ru.freedomminecraft.bot.news.LoggingNewsListener;
+import ru.freedomminecraft.bot.news.NewsChannel;
 
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
@@ -52,9 +55,10 @@ public class Main {
 
         CommandDispatcher dispatcher = new CommandDispatcher(new CommandParser(), registry);
         TelegramClient client = new OkHttpTelegramClient(config.token());
+        Optional<NewsChannel> news = openNewsChannel(config);
 
         TelegramBotsLongPollingApplication application = new TelegramBotsLongPollingApplication();
-        application.registerBot(config.token(), new TelegramBot(client, dispatcher));
+        application.registerBot(config.token(), new TelegramBot(client, dispatcher, news));
 
         log.info("Бот запущен.");
     }
@@ -68,5 +72,17 @@ public class Main {
         Connection connection = DriverManager.getConnection(database.url(), database.user(), database.password());
         log.info("Подписки хранятся в базе: {}", database.url());
         return new JdbcSubscriptionsRepository(connection);
+    }
+
+    private static Optional<NewsChannel> openNewsChannel(BotConfig config){
+        if (config.newsChannelId().isEmpty()){
+            log.warn("NEWS_CHANNEL_ID не задан: посты канала бот не читает.");
+            return Optional.empty();
+        }
+        long channelId = config.newsChannelId().get();
+        NewsChannel channel = new NewsChannel(channelId);
+        channel.subscribe(new LoggingNewsListener());
+        log.info("Бот слушает канал новостей: {}", channelId);
+        return Optional.of(channel);
     }
 }
