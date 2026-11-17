@@ -38,7 +38,7 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
 
     @Override
     public void consume(Update update) {
-        if (update.hasMessage()) {
+        if (update.hasChannelPost()) {
             receiveChannelPost(update);
             return;
         }
