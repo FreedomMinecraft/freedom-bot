@@ -32,7 +32,7 @@ public class NewsChannelTest {
 
     @Test
     void ignoresPostFromOtherChannel(){
-        channel.receive(new NewsPost(-1337228, 7, "Чужой пост"));
+        channel.receive(new NewsPost(-2281337, 7, "Чужой пост"));
 
         assertTrue(listener.received.isEmpty());
     }
