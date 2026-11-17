@@ -11,6 +11,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
 import ru.freedomminecraft.bot.command.CommandDispatcher;
+import ru.freedomminecraft.bot.news.NewsChannel;
+import ru.freedomminecraft.bot.news.NewsPost;
 import ru.freedomminecraft.bot.reply.Reply;
 
 public class TelegramBot extends DefaultLongPollingUpdateConsumer{
@@ -18,6 +20,7 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
 
     private final TelegramClient client;
     private final CommandDispatcher dispatcher;
+    private final Optional<NewsChannel> news;
 
     private void send(long chatId, Reply reply) {
         try {
@@ -27,14 +30,20 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
         }
     }
 
-    public TelegramBot(TelegramClient client, CommandDispatcher dispatcher) {
+    public TelegramBot(TelegramClient client, CommandDispatcher dispatcher, Optional<NewsChannel> news) {
         this.client = client;
         this.dispatcher = dispatcher;
+        this.news = news;
     }
 
     @Override
     public void consume(Update update) {
-        if (!update.hasMessage() || !update.getMessage().hasText()) {
+        if (!update.hasMessage()) {
+            receiveChannelPost(update);
+            return;
+        }
+
+        if (!update.hasMessage() || !update.getMessage().hasText()){
             return;
         }
 
@@ -46,5 +55,18 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
         if (reply.isPresent()) {
             send(chatId, reply.get());
         }
+    }
+
+    private void receiveChannelPost(Update update){
+        if (news.isEmpty()){
+            return;
+        }
+        long channelId = update.getChannelPost().getChatId();
+        int messageId = update.getChannelPost().getMessageId();
+        String text = update.getChannelPost().getText();
+        if (text == null){
+            text = update.getChannelPost().getCaption();
+        }
+        news.get().receive(new NewsPost(channelId, messageId, text));
     }
 }
