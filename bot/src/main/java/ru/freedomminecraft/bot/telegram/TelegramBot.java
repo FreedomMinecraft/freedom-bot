@@ -6,10 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.telegram.telegrambots.longpolling.util.DefaultLongPollingUpdateConsumer;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.message.MaybeInaccessibleMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
+import ru.freedomminecraft.bot.callback.CallbackDispatcher;
+import ru.freedomminecraft.bot.callback.CallbackResult;
 import ru.freedomminecraft.bot.command.CommandDispatcher;
 import ru.freedomminecraft.bot.news.NewsChannel;
 import ru.freedomminecraft.bot.news.NewsPost;
@@ -20,19 +25,13 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
 
     private final TelegramClient client;
     private final CommandDispatcher dispatcher;
+    private final CallbackDispatcher callbacks;
     private final Optional<NewsChannel> news;
 
-    private void send(long chatId, Reply reply) {
-        try {
-            client.execute(ReplyConverter.toSendMessage(chatId, reply));
-        } catch (TelegramApiException e) {
-            log.error("Не удалось отправить ответ в чат {}", chatId, e);
-        }
-    }
-
-    public TelegramBot(TelegramClient client, CommandDispatcher dispatcher, Optional<NewsChannel> news) {
+    public TelegramBot(TelegramClient client, CommandDispatcher dispatcher, CallbackDispatcher callbacks, Optional<NewsChannel> news) {
         this.client = client;
         this.dispatcher = dispatcher;
+        this.callbacks = callbacks;
         this.news = news;
     }
 
@@ -40,6 +39,11 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
     public void consume(Update update) {
         if (update.hasChannelPost()) {
             receiveChannelPost(update);
+            return;
+        }
+
+        if (update.hasCallbackQuery()) {
+            handleCallback(update.getCallbackQuery());
             return;
         }
 
@@ -53,7 +57,25 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
 
         Optional<Reply> reply = dispatcher.dispatch(chatId, userId, text);
         if (reply.isPresent()) {
-            send(chatId, reply.get());
+            execute(ReplyConverter.toSendMessage(chatId, reply.get()), chatId);
+        }
+    }
+
+    private void handleCallback(CallbackQuery query) {
+        MaybeInaccessibleMessage message = query.getMessage();
+        if (message == null) {
+            execute(ReplyConverter.toAnswer(query.getId(), CallbackResult.silent()), 0);
+            return;
+        }
+
+        long chatId = message.getChatId();
+        int messageId = message.getMessageId();
+        long userId = query.getFrom().getId();
+
+        CallbackResult result = callbacks.dispatch(chatId, userId, messageId, query.getData());
+        execute(ReplyConverter.toAnswer(query.getId(), result), chatId);
+        if (result.update().isPresent()) {
+            execute(ReplyConverter.toEditMessage(chatId, messageId, result.update().get()), chatId);
         }
     }
 
@@ -68,5 +90,13 @@ public class TelegramBot extends DefaultLongPollingUpdateConsumer{
             text = update.getChannelPost().getCaption();
         }
         news.get().receive(new NewsPost(channelId, messageId, text));
+    }
+
+    private void execute(BotApiMethod<?> method, long chatId) {
+        try {
+            client.execute(method);
+        } catch (TelegramApiException e) {
+            log.error("Не удалось выполнить {} в чате {}", method.getMethod(), chatId, e);
+        }
     }
 }
