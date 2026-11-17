@@ -14,9 +14,9 @@ public class CallbackDispatcherTest {
     private static final int MESSAGE_ID = 300;
 
     private CallbackDispatcher dispatcher;
-    private RecordingHangler recording;
+    private RecordingHandler recording;
 
-    private static class RecordingHangler implements CallbackHandler {
+    private static class RecordingHandler implements CallbackHandler {
         private CallbackContext received;
 
         @Override
@@ -60,7 +60,7 @@ public class CallbackDispatcherTest {
     @BeforeEach
     void setUp() {
         dispatcher = new CallbackDispatcher();
-        recording = new RecordingHangler();
+        recording = new RecordingHandler();
         dispatcher.register(recording);
         dispatcher.register(new BrokenHandler());
     }
