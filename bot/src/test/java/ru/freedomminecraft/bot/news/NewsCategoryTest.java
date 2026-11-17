@@ -29,6 +29,11 @@ public class NewsCategoryTest {
     }
 
     @Test
+    void hashtagMayBeFollowedByPunctuation(){
+        assertEquals(Set.of(NewsCategory.EVENT), NewsCategory.fromText("Все на #ивент!"));
+    }
+
+    @Test
     void hashtagsWrittenTogetherAreFound(){
         Set<NewsCategory> categories = NewsCategory.fromText("#ивент#розыгрыш");
 
