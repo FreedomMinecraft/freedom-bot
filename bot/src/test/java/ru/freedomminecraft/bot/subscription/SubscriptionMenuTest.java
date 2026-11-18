@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import okhttp3.Call;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +12,6 @@ import ru.freedomminecraft.bot.callback.CallbackResult;
 import ru.freedomminecraft.bot.news.NewsCategory;
 import ru.freedomminecraft.bot.reply.InlineButton;
 import ru.freedomminecraft.bot.reply.Reply;
-
-import javax.security.auth.callback.Callback;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
