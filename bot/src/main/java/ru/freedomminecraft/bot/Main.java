@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
 import org.telegram.telegrambots.longpolling.TelegramBotsLongPollingApplication;
@@ -30,9 +32,12 @@ import ru.freedomminecraft.bot.subscription.JdbcSubscriptionsRepository;
 import ru.freedomminecraft.bot.subscription.SubscriptionRepository;
 import ru.freedomminecraft.bot.subscription.SubscriptionMenu;
 import ru.freedomminecraft.bot.telegram.TelegramBot;
+import ru.freedomminecraft.bot.telegram.TelegramPostSender;
 import ru.freedomminecraft.bot.news.LoggingNewsListener;
 import ru.freedomminecraft.bot.news.NewsChannel;
 import ru.freedomminecraft.bot.callback.CallbackDispatcher;
+import ru.freedomminecraft.bot.broadcast.NewsBroadcaster;
+import ru.freedomminecraft.bot.broadcast.Throttle;
 
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
@@ -62,7 +67,7 @@ public class Main {
         CallbackDispatcher callbacks = new CallbackDispatcher();
         callbacks.register(subscriptionMenu);
         TelegramClient client = new OkHttpTelegramClient(config.token());
-        Optional<NewsChannel> news = openNewsChannel(config);
+        Optional<NewsChannel> news = openNewsChannel(config, subscriptions, client);
 
         TelegramBotsLongPollingApplication application = new TelegramBotsLongPollingApplication();
         application.registerBot(config.token(), new TelegramBot(client, dispatcher, callbacks, news));
@@ -81,7 +86,7 @@ public class Main {
         return new JdbcSubscriptionsRepository(connection);
     }
 
-    private static Optional<NewsChannel> openNewsChannel(BotConfig config){
+    private static Optional<NewsChannel> openNewsChannel(BotConfig config, SubscriptionRepository subscriptions, TelegramClient client){
         if (config.newsChannelId().isEmpty()){
             log.warn("NEWS_CHANNEL_ID не задан: посты канала бот не читает.");
             return Optional.empty();
@@ -89,6 +94,11 @@ public class Main {
         long channelId = config.newsChannelId().get();
         NewsChannel channel = new NewsChannel(channelId);
         channel.subscribe(new LoggingNewsListener());
+        channel.subscribe(new NewsBroadcaster(
+            subscriptions,
+            new TelegramPostSender(client),
+            Throttle.every(NewsBroadcaster.TELEGRAM_PAUSE),
+            Executors.newSingleThreadExecutor()));
         log.info("Бот слушает канал новостей: {}", channelId);
         return Optional.of(channel);
     }
