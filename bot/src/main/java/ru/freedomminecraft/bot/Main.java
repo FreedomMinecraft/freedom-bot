@@ -19,6 +19,7 @@ import ru.freedomminecraft.bot.command.guide.AdminsCommand;
 import ru.freedomminecraft.bot.command.guide.ChatsCommand;
 import ru.freedomminecraft.bot.command.guide.EventorsCommand;
 import ru.freedomminecraft.bot.command.guide.MediaCommand;
+import ru.freedomminecraft.bot.command.news.SubscribeCommand;
 import ru.freedomminecraft.bot.config.BotConfig;
 import ru.freedomminecraft.bot.config.DatabaseConfig;
 import ru.freedomminecraft.bot.serverinfo.ServerInfo;
@@ -27,6 +28,7 @@ import ru.freedomminecraft.bot.serverinfo.ServerInfoSources;
 import ru.freedomminecraft.bot.subscription.InMemorySubscriptionRepository;
 import ru.freedomminecraft.bot.subscription.JdbcSubscriptionsRepository;
 import ru.freedomminecraft.bot.subscription.SubscriptionRepository;
+import ru.freedomminecraft.bot.subscription.SubscriptionMenu;
 import ru.freedomminecraft.bot.telegram.TelegramBot;
 import ru.freedomminecraft.bot.news.LoggingNewsListener;
 import ru.freedomminecraft.bot.news.NewsChannel;
@@ -42,11 +44,13 @@ public class Main {
         ServerInfoSource source = ServerInfoSources.fromEnvironment(System.getenv());
         log.info("Данные о сервере: {}", source);
         ServerInfo info = source.load();
+        SubscriptionMenu subscriptionMenu = new SubscriptionMenu(subscriptions);
 
         CommandRegistry registry = new CommandRegistry();
         registry.register(new StartCommand());
         registry.register(new HelpCommand(registry));
         registry.register(new AboutCommand());
+        registry.register(new SubscribeCommand(subscriptionMenu));
         registry.register(new AdminsCommand(info.admins(), info.support()));
         registry.register(new EventorsCommand(info.eventors()));
         registry.register(new MediaCommand(info.media()));
@@ -56,6 +60,7 @@ public class Main {
 
         CommandDispatcher dispatcher = new CommandDispatcher(new CommandParser(), registry);
         CallbackDispatcher callbacks = new CallbackDispatcher();
+        callbacks.register(subscriptionMenu);
         TelegramClient client = new OkHttpTelegramClient(config.token());
         Optional<NewsChannel> news = openNewsChannel(config);
 

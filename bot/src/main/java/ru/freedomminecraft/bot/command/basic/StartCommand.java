@@ -28,7 +28,7 @@ public class StartCommand implements Command {
         return Reply.of(Html.title(Emoji.WAVE, "ДОБРО ПОЖАЛОВАТЬ НА FREEDOM!") + "\n\n"
             + "Я бот сервера — со мной вы не пропустите главное:\n\n"
             + Emoji.COMPASS.html() + " • Путеводитель: администрация, ивенторы, медиа и чаты\n"
-            + Emoji.BELL.html() + " • Новости по подписке: ивенты, розыгрыши, важное (скоро)\n"
+            + Emoji.BELL.html() + " • Новости по подписке: ивенты, розыгрыши, важное — /subscribe\n"
             + Emoji.SHIELD.html() + " • Защита игрового аккаунта через Telegram (скоро)\n\n"
             + Emoji.BOOK.html() + " Все команды — /help");
     }
