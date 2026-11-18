@@ -8,6 +8,6 @@ public class LoggingNewsListener implements NewsListener {
 
     @Override
     public void onPost(NewsPost post){
-        log.info("Новый пост в канале {} (сообщение {}): {}", post.channelId(), post.messageId(), post.text());
+        log.info("Новый пост в канале {} (сообщение {}), категории {}: {}", post.channelId(), post.messageId(), post.categories(), post.text());
     }
 }
