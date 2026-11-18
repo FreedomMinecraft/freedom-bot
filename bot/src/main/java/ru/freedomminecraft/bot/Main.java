@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Optional;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;

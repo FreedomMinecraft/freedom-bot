@@ -9,7 +9,6 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.processor.BeanWriterProcessor;
 import ru.freedomminecraft.bot.news.NewsCategory;
 import ru.freedomminecraft.bot.news.NewsPost;
 import ru.freedomminecraft.bot.subscription.InMemorySubscriptionRepository;
