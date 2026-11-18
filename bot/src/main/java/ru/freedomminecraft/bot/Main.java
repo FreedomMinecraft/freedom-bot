@@ -30,6 +30,7 @@ import ru.freedomminecraft.bot.subscription.SubscriptionRepository;
 import ru.freedomminecraft.bot.telegram.TelegramBot;
 import ru.freedomminecraft.bot.news.LoggingNewsListener;
 import ru.freedomminecraft.bot.news.NewsChannel;
+import ru.freedomminecraft.bot.callback.CallbackDispatcher;
 
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
@@ -54,11 +55,12 @@ public class Main {
         registry.register(new AuthorCommand());
 
         CommandDispatcher dispatcher = new CommandDispatcher(new CommandParser(), registry);
+        CallbackDispatcher callbacks = new CallbackDispatcher();
         TelegramClient client = new OkHttpTelegramClient(config.token());
         Optional<NewsChannel> news = openNewsChannel(config);
 
         TelegramBotsLongPollingApplication application = new TelegramBotsLongPollingApplication();
-        application.registerBot(config.token(), new TelegramBot(client, dispatcher, news));
+        application.registerBot(config.token(), new TelegramBot(client, dispatcher, callbacks, news));
 
         log.info("Бот запущен.");
     }
