@@ -69,7 +69,7 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- Складывает все зависимости внутрь freedom.jar, чтобы бот запускался без IDEA -->
+            <!-- Складывает все зависимости внутрь freedom-bot.jar, чтобы бот запускался без IDEA -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
