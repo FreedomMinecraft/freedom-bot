@@ -19,7 +19,7 @@ import ru.freedomminecraft.bot.reply.Reply;
 
 public final class ReplyConverter {
 
-    private ReplyConverter() {};
+    private ReplyConverter() {}
 
     public static SendMessage toSendMessage(long chatId, Reply reply) {
         return SendMessage.builder()
