@@ -1,0 +1,7 @@
+name: FreedomBot
+version: '${project.version}'
+main: ru.freedomminecraft.plugin.FreedomPlugin
+api-version: '26.3'
+description: Связь сервера FREEDOM с Telegram-ботом
+authors: [Yukk10, iwannasleepfor1000years]
+website: https://freedom-minecraft.ru
