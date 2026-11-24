@@ -12,10 +12,10 @@ import java.util.Set;
 import ru.freedomminecraft.bot.news.NewsCategory;
 import ru.freedomminecraft.bot.storage.StorageException;
 
-public class JdbcSubscriptionsRepository implements SubscriptionRepository {
+public class JdbcSubscriptionRepository implements SubscriptionRepository {
     private final Connection connection;
 
-    public JdbcSubscriptionsRepository(Connection connection) {
+    public JdbcSubscriptionRepository(Connection connection) {
         this.connection = connection;
         createTableIfMissing();
     }
@@ -77,7 +77,7 @@ public class JdbcSubscriptionsRepository implements SubscriptionRepository {
     }
 
     @Override
-    public Set<Long> subscribersOf(NewsCategory category) {
+    public synchronized Set<Long> subscribersOf(NewsCategory category) {
         String sql = "SELECT user_id FROM subscriptions WHERE category = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, category.name());
