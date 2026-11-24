@@ -223,6 +223,7 @@ Telegram-бот для Minecraft-сервера **FREEDOM** — двухфакт
 | Язык | Java 21 |
 | Сборка и зависимости | Apache Maven |
 | Платформа | Telegram Bot API (библиотека TelegramBots) |
+| Плагин | Paper API 26.3 |
 | Данные | JSON (Jackson) |
 | База данных | SQLite (подписки) |
 | Логирование | SLF4J |
@@ -266,7 +267,7 @@ freedom-bot/
 ├── pom.xml          # родительский: версия Java, версии библиотек, список модулей
 ├── common/          # общий код бота и плагина (классы запросов и ответов API)
 ├── bot/             # Telegram-бот; данные о сервере — bot/src/main/resources/server-info.json
-├── plugin/          # плагин для сервера Paper/Purpur 1.21.10 (появится позже)
+├── plugin/          # плагин для сервера Paper/Purpur 26.3; jar — plugin/target/freedom-plugin.jar
 ├── docs/            # документация: деплой бота, хранение данных
 ├── Dockerfile       # сборка и запуск бота на хостинге
 └── .github/         # CI (сборка и тесты на каждый PR) и шаблон Pull Request
