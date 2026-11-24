@@ -12,10 +12,10 @@ import java.util.Set;
 import ru.freedomminecraft.bot.news.NewsCategory;
 import ru.freedomminecraft.bot.storage.StorageException;
 
-public class JdbcSubscriptionsRepository implements SubscriptionRepository {
+public class JdbcSubscriptionRepository implements SubscriptionRepository {
     private final Connection connection;
 
-    public JdbcSubscriptionsRepository(Connection connection) {
+    public JdbcSubscriptionRepository(Connection connection) {
         this.connection = connection;
         createTableIfMissing();
     }

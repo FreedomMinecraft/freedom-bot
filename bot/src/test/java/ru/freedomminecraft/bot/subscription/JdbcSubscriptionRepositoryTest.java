@@ -20,7 +20,7 @@ public class JdbcSubscriptionRepositoryTest extends SubscriptionRepositoryContra
     @Override
     protected SubscriptionRepository createRepository() throws SQLException {
         connection = DriverManager.getConnection("jdbc:sqlite::memory:");
-        return new JdbcSubscriptionsRepository(connection);
+        return new JdbcSubscriptionRepository(connection);
     }
 
     @AfterEach
@@ -33,11 +33,11 @@ public class JdbcSubscriptionRepositoryTest extends SubscriptionRepositoryContra
         String url = "jdbc:sqlite:" + directory.resolve("bot.db");
 
         try (Connection first = DriverManager.getConnection(url)) {
-            new JdbcSubscriptionsRepository(first).subscribe(1L, NewsCategory.EVENT);
+            new JdbcSubscriptionRepository(first).subscribe(1L, NewsCategory.EVENT);
         }
 
         try (Connection second = DriverManager.getConnection(url)) {
-            SubscriptionRepository reopened = new JdbcSubscriptionsRepository(second);
+            SubscriptionRepository reopened = new JdbcSubscriptionRepository(second);
             assertEquals(Set.of(NewsCategory.EVENT), reopened.categoriesOf(1L));
         }
     }

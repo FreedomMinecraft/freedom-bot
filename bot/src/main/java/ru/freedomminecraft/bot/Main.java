@@ -27,7 +27,7 @@ import ru.freedomminecraft.bot.serverinfo.ServerInfo;
 import ru.freedomminecraft.bot.serverinfo.ServerInfoSource;
 import ru.freedomminecraft.bot.serverinfo.ServerInfoSources;
 import ru.freedomminecraft.bot.subscription.InMemorySubscriptionRepository;
-import ru.freedomminecraft.bot.subscription.JdbcSubscriptionsRepository;
+import ru.freedomminecraft.bot.subscription.JdbcSubscriptionRepository;
 import ru.freedomminecraft.bot.subscription.SubscriptionRepository;
 import ru.freedomminecraft.bot.subscription.SubscriptionMenu;
 import ru.freedomminecraft.bot.telegram.TelegramBot;
@@ -82,7 +82,7 @@ public class Main {
         DatabaseConfig database = config.database().get();
         Connection connection = DriverManager.getConnection(database.url(), database.user(), database.password());
         log.info("Подписки хранятся в базе: {}", database.url());
-        return new JdbcSubscriptionsRepository(connection);
+        return new JdbcSubscriptionRepository(connection);
     }
 
     private static Optional<NewsChannel> openNewsChannel(BotConfig config, SubscriptionRepository subscriptions, TelegramClient client){
