@@ -267,8 +267,8 @@ freedom-bot/
 ├── pom.xml          # родительский: версия Java, версии библиотек, список модулей
 ├── common/          # общий код бота и плагина (классы запросов и ответов API)
 ├── bot/             # Telegram-бот; данные о сервере — bot/src/main/resources/server-info.json
-├── plugin/          # плагин для сервера Paper/Purpur 26.3; jar — plugin/target/freedom-plugin.jar
-├── docs/            # документация: деплой бота, хранение данных
+├── plugin/          # плагин для сервера Paper / Purpur / Leaf 26.3; jar — plugin/target/freedom-plugin.jar
+├── docs/            # документация: деплой бота, хранение данных, локальный тестовый сервер
 ├── Dockerfile       # сборка и запуск бота на хостинге
 └── .github/         # CI (сборка и тесты на каждый PR) и шаблон Pull Request
 ```
